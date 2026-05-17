@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USB Carries Both Power and Data on the Same Wire — ZKNOT</title>
+  <meta name="description" content="A short education in why every USB port is, by design, both a power outlet and a network connection.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>Vol. I · Essay № 001</span>
+    <span>Published 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Essay № 001 · The Physical Layer</div>
+      <h1>USB Carries Both <em>Power</em> and <em>Data</em> on the Same Wire</h1>
+      <p class="dek">
+        A short education in why "I just plugged it in to charge" was never as simple as it sounded — and why the distinction matters more every year.
+      </p>
+      <p class="essay-byline">By the Editors · Salt Lake City · Approx. 12 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        Most people who use a computer every day cannot tell you what the letters USB stand for. This is not a failure of the public; it is a triumph of the standard. The Universal Serial Bus was designed, in the mid-1990s, to be the thing you did not have to think about. Before USB, connecting a printer to a computer required a parallel port, a specific cable, a driver disk, a reboot, and a small prayer. After USB, you plugged it in. The promise was in the name: <em>universal</em>. One connector, for everything.
+      </p>
+
+      <p>
+        The price of that promise — a price almost no one was told they were paying — is the subject of this essay. It is a small price, in most cases. But it is real, it is permanent, and understanding it is the beginning of understanding almost everything else about hardware trust.
+      </p>
+
+      <h2>The Four Wires</h2>
+
+      <p>
+        Open up a standard USB-A cable, the rectangular kind that has been the dominant computer port for thirty years, and you will find, inside the plastic and the foil shielding, four wires. They are usually colored. The convention is this:
+      </p>
+
+      <figure class="diagram">  RED    ━━━━━━━━━━  +5 volts  (power in)
+  WHITE  ━━━━━━━━━━  D−        (data, negative)
+  GREEN  ━━━━━━━━━━  D+        (data, positive)
+  BLACK  ━━━━━━━━━━  ground    (power return)</figure>
+
+      <p>
+        Two of those wires carry electricity to run the device on the other end. The other two carry information in both directions. They share a connector, a cable, and a port. There is no physical switch, anywhere in a standard USB cable, that disconnects one pair from the other. When you plug a cable in to charge, you have also plugged in a data connection. It is the same act.
+      </p>
+
+      <p>
+        Newer USB connectors — USB-C in particular — have more wires and more sophisticated negotiation between the two ends, but the underlying truth has not changed. Every USB port is, by physical design, both a power outlet and a network connection. The decision about what to do with the data wires is made by software, on both ends, after the cable is already plugged in.
+      </p>
+
+      <h2>What the Software Decides</h2>
+
+      <p>
+        When you plug a phone into a laptop, a short conversation happens, in a few milliseconds, before the screen flickers. The two devices identify themselves. The phone, by default on most modern operating systems, presents itself as a peripheral that wants only to be charged. The laptop offers power. The data wires stay quiet. Nothing is transferred.
+      </p>
+
+      <p>
+        This is a software policy, not a physical fact. The data wires are still there. The connection is still made. The two devices have agreed, by convention, not to use it for anything but the most minimal handshake. If either side changes its mind, the wires are ready.
+      </p>
+
+      <p>
+        This is why, on a phone, a notification sometimes appears asking whether you want to <em>trust this computer</em>. The phone is telling you, in plain language, that it has detected a request to do more than charge. The wires that were always there are about to be used. You are being asked, after the cable is already in your hand, whether to permit it.
+      </p>
+
+      <blockquote>
+        The physical connection is made before the trust question is asked. This is the inversion that almost everything in hardware security has to work around.
+      </blockquote>
+
+      <h2>What a Cable Can Be</h2>
+
+      <p>
+        A cable is, to most people, a passive object. It has no intelligence, no memory, no capability beyond the dumb conduction of electrons. This intuition is correct for almost all cables most people will ever encounter. It is also, for USB cables in particular, no longer reliable as a general rule.
+      </p>
+
+      <p>
+        Modern USB-C cables contain, in many cases, a small chip. The chip is called an <em>e-marker</em>, and its job is to tell each end of the connection what the cable can do — how much current it can carry, how fast it can transfer data, whether it supports video. This chip is, in the technical sense of the word, a computer. It is extremely small and does almost nothing, but it is not passive. It runs code.
+      </p>
+
+      <p>
+        Once a cable can run code, the question of what code it runs is no longer determined by the cable's shape. A cable that looks like a charging cable can, in principle, contain a chip that does more than identify itself. Security researchers have, over the past decade, demonstrated cables that contain wireless radios, keystroke-injection hardware, and small amounts of storage. The most famous of these, the <code>O.MG Cable</code>, is sold openly as a research tool. It is indistinguishable, by eye, from a normal Lightning or USB-C cable.
+      </p>
+
+      <p>
+        This is not a reason to panic. The overwhelming majority of cables in the overwhelming majority of pockets are exactly what they appear to be. But the assumption that <em>a cable is just a cable</em> is, technically, no longer true. A cable is now, sometimes, a small computer that happens to be shaped like a cable.
+      </p>
+
+      <h2>Why This Was Always Going to Happen</h2>
+
+      <p>
+        The merger of power and data in a single connector was not a security oversight. It was a deliberate design choice, made by smart people, for good reasons. Separate connectors for power and data would have doubled the number of ports on every device, doubled the number of cables in every drawer, and roughly halved the rate of adoption. USB succeeded because it was simple. The cost of that simplicity was that, at the physical layer, every charging port is also a data port.
+      </p>
+
+      <p>
+        The cost was not hidden. It was visible in the specification from the beginning. It was simply not interesting, in the 1990s, to most of the people writing the specification, because the kinds of attacks it would later enable required hardware that did not yet exist and threat models that had not yet been articulated. The standard was designed for a world where the thing on the other end of the cable was almost always a printer.
+      </p>
+
+      <p>
+        We do not live in that world anymore. The thing on the other end of the cable is now, often, a pocket-sized computer containing the user's photographs, location history, financial information, and a complete record of who they have spoken to and when. The connector is the same. The wires are the same. The physical layer has not changed. Everything around it has.
+      </p>
+
+      <hr>
+
+      <h2>What This Means in Practice</h2>
+
+      <p>
+        We are not in the business, on this site, of telling people to live in fear of cables. Most cables are fine. Most ports are fine. The probability that a given person, plugging a given cable into a given port on a given day, is being attacked is very close to zero.
+      </p>
+
+      <p>
+        The point is not the probability. The point is the <em>structure</em>. Understanding that a USB connection is, physically, always both a power connection and a data connection — and that the decision about which it acts as is made in software after the connection is already made — is the beginning of understanding a much larger set of questions:
+      </p>
+
+      <p>
+        Why are sensitive government facilities particular about which USB devices are allowed inside? Why do some forensic procedures require special <em>write-blocking</em> cables that physically sever the data lines? Why does a charging-only adapter — a small dongle that plugs in between the cable and the port — exist as a commercial product? Why is the question of whether a device is what it claims to be a question, and not just an observation?
+      </p>
+
+      <p>
+        These are not separate puzzles. They are the same puzzle, viewed from different angles. The puzzle is: <em>what does it mean to trust a physical thing?</em>
+      </p>
+
+      <p>
+        That is the question this project exists to take seriously. USB is where we begin because USB is where most readers already have, in their pocket, a working example of the problem. Once you can see it there, you can see it everywhere else.
+      </p>
+
+      <h2>Further Reading</h2>
+
+      <p>
+        The USB specification is, despite its reputation, surprisingly readable. The <em>USB 2.0 Specification</em> (USB Implementers Forum, 2000) is the document that defines the four-wire arrangement described above. The newer <em>USB Power Delivery</em> specification describes the e-marker chips. Both are freely available from usb.org.
+      </p>
+
+      <p>
+        For the history of how USB came to be, Ajay Bhatt — one of the original architects of the standard at Intel — has given several interviews that describe the design decisions in plain language. The standard was, by his account, a deliberate attempt to do for connectors what TCP/IP had done for networks: make the boring details boring enough that nobody had to think about them.
+      </p>
+
+      <p>
+        For the security implications, the work of researcher Karsten Nohl on <em>BadUSB</em> (presented at Black Hat 2014) remains the clearest treatment of the underlying problem: that USB devices identify themselves to the host, and the host has, historically, no way to verify that the identification is honest.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>A note on our interests.</strong> ZKNOT, Inc. — the company that funds this educational project — develops hardware authentication technology, including verification systems for physical objects. We have a commercial interest in the broader question of physical trust. We do not have a commercial interest in USB cables specifically. This essay was written because USB is the most accessible entry point to a set of ideas the company cares about; not because we sell anything related to it.</p>
+        <p><strong>Corrections.</strong> If you find an error in this essay, please write to <a href="mailto:editors@zknot.org">editors@zknot.org</a>. We will correct it and note the correction at the bottom of the page.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> — the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> — the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> — this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter — yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>© 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>

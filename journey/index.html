@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Can a Signature Extend Into the Physical World? — ZKNOT</title>
+  <meta name="description" content="An interactive field guide to trust, evidence, and signatures in the age of AI. Seven chapters, about fifteen minutes.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/journey.css">
+</head>
+<body class="journey">
+
+  <header class="journey-masthead hidden" id="journey-masthead">
+    <a href="/" class="journey-wordmark">ZKNOT</a>
+    <div class="journey-progress" role="navigation" aria-label="Journey progress">
+      <button class="journey-progress-dot" data-target="0" aria-label="Chapter 0: Title"></button>
+      <button class="journey-progress-dot" data-target="1" aria-label="Chapter 1: The Mark"></button>
+      <button class="journey-progress-dot" data-target="2" aria-label="Chapter 2: The Witness"></button>
+      <button class="journey-progress-dot" data-target="3" aria-label="Chapter 3: The Key"></button>
+      <button class="journey-progress-dot" data-target="4" aria-label="Chapter 4: The Lie"></button>
+      <button class="journey-progress-dot" data-target="5" aria-label="Chapter 5: The Button"></button>
+      <button class="journey-progress-dot" data-target="6" aria-label="Chapter 6: The Device"></button>
+      <button class="journey-progress-dot" data-target="7" aria-label="Chapter 7: The Receipt"></button>
+    </div>
+    <a href="/" class="journey-exit">Exit</a>
+  </header>
+
+  <!-- ============================================================
+       CHAPTER 0 — TITLE
+       ============================================================ -->
+  <section class="chapter chapter-title in-view" data-chapter="0" id="ch-0">
+    <div class="chapter-inner">
+      <span class="eyebrow">An interactive inquiry · Seven chapters</span>
+      <h1>Can a signature extend into the <em>physical world</em>?</h1>
+      <p class="subtitle">
+        Before a signature was a file, it was an event. Someone was present. Someone acted. Someone could later be held to it.
+      </p>
+      <p class="credits">
+        Read in order · about fifteen minutes<br>
+        No accounts, no tracking, no haste
+      </p>
+      <button class="advance big" data-target="#ch-1">
+        Begin <span class="arrow">↓</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 1 — THE MARK
+       ============================================================ -->
+  <section class="chapter" data-chapter="1" id="ch-1">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter One · The Mark</div>
+      <h2>What did a signature originally prove?</h2>
+
+      <div class="viz">
+        <svg class="signature-svg" viewBox="0 0 400 120" aria-hidden="true">
+          <path d="M 20 80 Q 40 30, 60 70 T 100 75 Q 130 40, 150 80 T 200 70 Q 230 45, 260 80 T 310 75 Q 340 55, 370 78 L 380 78" />
+        </svg>
+      </div>
+
+      <p class="lead">
+        For most of recorded history, a signature was a physical act. Ink, a hand, a piece of paper, a moment in time.
+      </p>
+
+      <p>
+        Before you read further: when you sign your name on a piece of paper, what do you believe that mark actually proves?
+      </p>
+
+      <div class="choice-group">
+        <div class="button-row">
+          <button class="choice">Identity</button>
+          <button class="choice">Intent</button>
+          <button class="choice">Agreement</button>
+          <button class="choice">Presence</button>
+        </div>
+      </div>
+
+      <div class="response">
+        <div class="response-inner">
+          <p>It proves less than you think.</p>
+          <p class="note">
+            A mark on paper, on its own, proves only that <em>something</em> made that mark. It does not prove who. It does not prove when. It does not prove whether the person knew what they were signing. The mark is evidence — but evidence of what, exactly, has always been a separate question. We will return to this.
+          </p>
+        </div>
+      </div>
+
+      <button class="advance" data-target="#ch-2">Continue <span class="arrow">↓</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 2 — THE WITNESS
+       ============================================================ -->
+  <section class="chapter" data-chapter="2" id="ch-2">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter Two · The Witness</div>
+      <h2>The paper was never enough.</h2>
+
+      <p>
+        Read any contract older than a hundred years and you will find, near the bottom, more than one signature. The signer signed. A witness signed. Sometimes a notary affixed a seal. Sometimes two witnesses. Sometimes a wax impression, pressed by a ring no one else owned.
+      </p>
+
+      <p>
+        Why?
+      </p>
+
+      <p>
+        Because the people writing those contracts already understood what we are sometimes tempted to forget: a mark on paper is not, by itself, proof of anything. Proof requires <em>context</em> — a witness who was there, a seal that is hard to forge, an institution that vouches, a chain of custody from the moment of signing to the moment of dispute.
+      </p>
+
+      <div class="interlude">
+        The signature was the artifact. The trust was the system around it.
+      </div>
+
+      <p>
+        For a thousand years, that system worked surprisingly well, because it relied on properties of the physical world: ink is hard to lift; wax is hard to duplicate; a person who claims to have been a witness either was or was not, and other people remember. The trust was not in the mark. The trust was in everything <em>around</em> the mark.
+      </p>
+
+      <p>
+        Then, in the late twentieth century, the artifact left the physical world.
+      </p>
+
+      <button class="advance" data-target="#ch-3">Continue <span class="arrow">↓</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 3 — THE KEY
+       ============================================================ -->
+  <section class="chapter" data-chapter="3" id="ch-3">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter Three · The Key</div>
+      <h2>Mathematics replaces ink.</h2>
+
+      <p>
+        In 1976, two cryptographers — Whitfield Diffie and Martin Hellman — published a paper that would, over the following decades, replace ink with mathematics. The technique they described, and that Ron Rivest, Adi Shamir, and Leonard Adleman made practical two years later, is called <em>public-key cryptography</em>.
+      </p>
+
+      <div class="viz">
+        <div class="key-viz">
+          <div class="key private">
+            <span class="label">Private key</span>
+            secret · never shared<br>
+            held only by signer
+          </div>
+          <div class="arrow">→</div>
+          <div class="key public">
+            <span class="label">Public key</span>
+            shared with the world<br>anyone can verify
+          </div>
+        </div>
+      </div>
+
+      <p>
+        The mechanism is elegant. A signer holds a private key — a number, very large, mathematically impossible to guess. From that private key, a public key is derived. The signer can use the private key to produce, for any document, a small signature that the public key can verify. Anyone in the world can check that the signature is valid. Only the holder of the private key could have produced it.
+      </p>
+
+      <p>
+        This was, by any honest measure, a triumph of human thought. For the first time in history, two strangers could prove things to each other without trusting any third party — no notary, no government, no shared physical space. The internet, as we use it today, is built on this idea. Every secure website. Every software update. Every digitally signed message.
+      </p>
+
+      <div class="interlude">
+        Humanity, briefly, solved authenticity with math.
+      </div>
+
+      <p>
+        For a moment, it looked as though the centuries-old machinery of witnesses and seals had been made obsolete by a few equations. The artifact had moved into the digital world, but trust had moved with it.
+      </p>
+
+      <p>
+        Then something happened that the cryptographers of the 1970s did not anticipate.
+      </p>
+
+      <button class="advance" data-target="#ch-4">Continue <span class="arrow">↓</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 4 — THE LIE
+       ============================================================ -->
+  <section class="chapter" data-chapter="4" id="ch-4">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter Four · The Lie</div>
+      <h2>What if the computer lies?</h2>
+
+      <p>
+        Public-key cryptography assumes that the thing being signed is what the signer thinks it is. It assumes the document on screen is the document being signed. It assumes the photograph in the file is a record of something that happened. It assumes, in short, that the digital evidence is a faithful representation of some physical reality.
+      </p>
+
+      <p>
+        For most of the last fifty years, this assumption held. Producing a convincing fake — a forged photograph, a fabricated audio recording, an invented document with realistic typography and metadata — required skill, time, and equipment that most people did not have.
+      </p>
+
+      <p>
+        That is no longer true.
+      </p>
+
+      <div class="viz">
+        <div class="collapse-viz">
+          <span style="animation-delay: 0.1s">photograph</span>
+          <span style="animation-delay: 0.4s; opacity: 0.6">·</span>
+          <span style="animation-delay: 0.7s">voice</span>
+          <span style="animation-delay: 1.0s; opacity: 0.6">·</span>
+          <span class="corrupt" style="animation-delay: 1.3s" data-real="document">document</span>
+          <span style="animation-delay: 1.6s; opacity: 0.6">·</span>
+          <span style="animation-delay: 1.9s">video</span>
+          <span style="animation-delay: 2.2s; opacity: 0.6">·</span>
+          <span class="corrupt" style="animation-delay: 2.5s" data-real="receipt">receipt</span>
+        </div>
+      </div>
+
+      <p>
+        A photograph can be generated, in seconds, of a person who does not exist, in a place they never were, doing something that never happened. A voice can be cloned from thirty seconds of audio. A document can be drafted, formatted, signed, and timestamped, all in software, by a system that has never touched ink or paper.
+      </p>
+
+      <p>
+        Cryptography still works. The signatures still verify. The mathematics is as sound as it ever was. The problem is not in the math. The problem is one layer below the math, in the question the math cannot answer:
+      </p>
+
+      <div class="interlude">
+        If a computer can simulate the evidence, what does it mean to sign it?
+      </div>
+
+      <p>
+        Consider the question for a moment before continuing.
+      </p>
+
+      <div class="choice-group">
+        <div class="button-row">
+          <button class="choice">Cryptography is still enough</button>
+          <button class="choice">We need better detection of fakes</button>
+          <button class="choice">Something else is missing</button>
+        </div>
+      </div>
+
+      <div class="response">
+        <div class="response-inner">
+          <p>The third answer is the one this project takes seriously.</p>
+          <p class="note">
+            Better fake-detection is a useful but losing race: the generators improve faster than the detectors. Cryptography proves that a particular key signed a particular file — but if the file itself can be synthesized, the signature only certifies the synthesis. What is missing is something earlier in the chain: evidence that the thing being signed is a record of an event that actually happened in the physical world.
+          </p>
+        </div>
+      </div>
+
+      <button class="advance" data-target="#ch-5">Continue <span class="arrow">↓</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 5 — THE BUTTON
+       ============================================================ -->
+  <section class="chapter" data-chapter="5" id="ch-5">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter Five · The Button</div>
+      <h2>Human actuation returns.</h2>
+
+      <p>
+        For most of computing history, the cost of physical action was treated as a problem to be eliminated. Every workflow that required a human to press a button was, almost by definition, a workflow that could be automated. The fewer hands, the more scalable. The more software, the better.
+      </p>
+
+      <p>
+        In a world where software can generate convincing evidence at scale, this calculus inverts. The physical act — the thing a piece of software <em>cannot</em> do on its own — becomes valuable precisely because it is hard to fake. A button that a person must physically press, on a device that is physically in their possession, at a moment in physical time, is a primitive that no language model can simulate.
+      </p>
+
+      <p>
+        Try it.
+      </p>
+
+      <div class="viz">
+        <div class="button-press">
+          <div class="physical-button" role="button" tabindex="0" aria-label="Press the button"></div>
+          <div>Press to attest</div>
+        </div>
+      </div>
+
+      <div class="button-response response">
+        <div class="response-inner">
+          <p>You pressed a button on a screen, of course — software can do that.</p>
+          <p class="note">
+            But imagine the button is on a device sitting on your desk. A physical button, on physical hardware, that produces a cryptographic signature only when pressed. The device knows it was pressed. The signature carries that knowledge with it. There is no software path to producing the signature without a human, present, having performed the act.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        This is not a new idea. Bank vaults have required physical key turns for a century. Nuclear launch protocols require two human operators turning two keys at the same time. The pattern — "the system will not act unless a human acts first" — is one of the oldest forms of trust we have. What is new is making it work for evidence itself.
+      </p>
+
+      <button class="advance" data-target="#ch-6">Continue <span class="arrow">↓</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 6 — THE DEVICE
+       ============================================================ -->
+  <section class="chapter" data-chapter="6" id="ch-6">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter Six · The Device</div>
+      <h2>Hardware becomes the witness.</h2>
+
+      <p>
+        A button is necessary, but not sufficient. Pressing a button on a compromised computer produces a signature that the compromised computer can fabricate. The button only matters if the thing producing the signature cannot be tampered with by software.
+      </p>
+
+      <p>
+        This is the role of what engineers call a <em>secure element</em>: a small, sealed, single-purpose chip whose internal state cannot be read or modified by the device it is attached to. Your passport has one. Your bank card has one. The phone in your pocket has one, even if you have never thought about it.
+      </p>
+
+      <p>
+        A secure element can hold a private key that no software, including the operating system, can extract. It can produce signatures. It can refuse to act unless a physical condition is satisfied — a button press, a fingerprint, a power-up sequence. It is, in effect, a small mechanical witness, with all the durability of physics and none of the fallibility of memory.
+      </p>
+
+      <div class="interlude">
+        The physical world is the only place a digital system cannot lie.
+      </div>
+
+      <p>
+        Combine the two — a physical button, a tamper-resistant chip — and something interesting happens. The signature it produces is no longer just a mathematical claim. It is a claim about an event: <em>at this moment, this physical device, in someone's physical possession, was deliberately actuated</em>. The signature carries that claim cryptographically forward.
+      </p>
+
+      <p>
+        Now the signature is not just math. It is a receipt of a physical event.
+      </p>
+
+      <button class="advance" data-target="#ch-7">Continue <span class="arrow">↓</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 7 — THE RECEIPT
+       ============================================================ -->
+  <section class="chapter" data-chapter="7" id="ch-7">
+    <div class="chapter-inner">
+      <div class="chapter-num">Chapter Seven · The Receipt</div>
+      <h2>A signature is not the artifact. It is the receipt of a physical event.</h2>
+
+      <p>
+        This is the idea this project exists to take seriously. It is not a new idea — courtrooms, customs offices, forensic labs, and scientific instruments have always understood it. What is new is that we now need it everywhere.
+      </p>
+
+      <div class="viz">
+        <div class="receipt"><span class="field">event</span>     <span class="value">human actuation</span>
+<span class="field">device</span>    <span class="value">SE-A07C · sealed 2026-03-11</span>
+<span class="field">moment</span>    <span class="value">2026-05-17T14:22:08Z</span>
+<span class="field">subject</span>   <span class="value">image-7d3b · captured in-device</span>
+<span class="field">witness</span>   <span class="value">power isolation · button press</span>
+<span class="field">proof</span>     <span class="hash">3f9a:c012:8e4b:7d1f:a823:0e9c:1b44:f720</span></div>
+      </div>
+
+      <p>
+        Think about what each line of that receipt costs an attacker to forge. The mathematics is the easy part. The physical event — the device, the moment, the button, the witness — is the hard part. The hardness is the point.
+      </p>
+
+      <p>
+        This is what we mean when we say <em>physical trust</em>. Not the absence of cryptography. Not a rejection of mathematics. A return to something the old contracts already understood: that a signature is only as strong as the system around it, and the strongest systems are the ones grounded in the physical world.
+      </p>
+
+      <p>
+        Bodycam footage that proves it was captured on the device that recorded it. Journalist evidence that can be verified, years later, as a record of an actual event. Courtroom media that survives the question <em>was this generated?</em> Scientific instruments that produce data whose provenance is part of the data. Firmware that can prove it was installed by the manufacturer and has not been swapped. Photographs that, in a world drowning in synthetic images, can prove they are records of light that struck a real sensor at a real time.
+      </p>
+
+      <div class="interlude">
+        In a world of infinite synthetic content, how will humans prove reality to each other?
+      </div>
+
+      <p>
+        This is the question the next decade of trust infrastructure will have to answer. We do not know the full shape of the answer yet. But we know it will involve physics, mathematics, and the small, deliberate act of a human present at a moment that mattered.
+      </p>
+
+      <div class="exit-links">
+        <p class="closing">Physics enforces. Math proves. You verify.</p>
+        <a href="https://verifyknot.io">Verify an artifact <span class="domain">verifyknot.io →</span></a>
+        <a href="https://zknot.io">The company <span class="domain">zknot.io →</span></a>
+        <a href="/essays/">Read the essays <span class="domain">zknot.org →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <script src="/assets/js/journey.js" defer></script>
+</body>
+</html>
