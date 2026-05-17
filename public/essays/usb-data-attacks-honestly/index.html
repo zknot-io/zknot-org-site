@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USB Data Attacks, Honestly — ZKNOT</title>
+  <meta name="description" content="What actually happens when a malicious cable meets a normal pocket. A careful look at threat models, real attacks, and the unsexy mitigations that work.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>Vol. I · Essay № 003</span>
+    <span>Published 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Essay № 003 · The Physical Layer</div>
+      <h1>USB Data Attacks, <em>Honestly</em></h1>
+      <p class="dek">
+        What actually happens when a malicious cable meets a normal pocket. A careful look at the threat models that matter, the ones that do not, and the unsexy mitigations that work for both.
+      </p>
+      <p class="essay-byline">By the Editors · Salt Lake City · Approx. 11 minutes · Technical appendix follows</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        An earlier essay on this site argued that USB cables carry both power and data on the same wires, and that this fact — banal as it sounds — sits underneath a surprising amount of what is wrong with the way we think about everyday computer security. That essay was about the <em>physical layer</em>: the four wires, the connector, the shared conduit. It described what was possible.
+      </p>
+
+      <p>
+        This essay is about what actually happens.
+      </p>
+
+      <p>
+        Between "possible" and "happens" is a country that most writing about security skips over. On one side of it lives a kind of journalism that turns every technical possibility into a personal emergency. Every cable is a weapon. Every airport port is a trap. Every charging station is a honeypot. On the other side lives a kind of complacency that, in reaction, dismisses the whole category. Nobody is going to attack you through a USB port. Get over it. Charge your phone.
+      </p>
+
+      <p>
+        Neither view is honest. The honest version is harder, because the honest version requires distinguishing between threats by audience, severity, and cost of mitigation. That is what this essay tries to do.
+      </p>
+
+      <h2>The Question Most Writing Skips</h2>
+
+      <p>
+        When a security researcher demonstrates a new USB attack — a malicious cable that injects keystrokes, a power adapter that exfiltrates data, a cable with a wireless radio embedded in the connector hood — the demonstration is usually impressive and the press coverage is usually broad. Within a week, somewhere on the internet, a person who saw the headline is buying a charge-only adapter on Amazon, with vague gratitude that they have protected themselves.
+      </p>
+
+      <p>
+        What is rarely asked, in either the original demonstration or the coverage that follows, is the question that actually matters: <em>for which people is this a meaningful concern, and at what cost?</em> The answer is not "everyone, at any cost." It is also not "nobody, ignore it." It is something more specific and more useful.
+      </p>
+
+      <div class="interlude" style="font-family: var(--serif-display); font-style: italic; font-weight: 300; font-size: 1.5rem; line-height: 1.35; color: var(--ink); border-left: 2px solid var(--accent); padding-left: 1.5rem; margin: 2rem 0; max-width: 32rem;">
+        The honest version of computer security is mostly about getting the threat model right.
+      </div>
+
+      <p>
+        The threat model is the calm question underneath the loud headline. It asks: who is the attacker, what do they want, what can they reach, and what would it cost them to act? The answers vary enormously between, say, a journalist returning from a conflict zone with a phone full of sources and a person buying socks at the airport. Both face USB ports. They do not face the same risk. They should not behave the same way.
+      </p>
+
+      <h2>Who Should Worry About a Cable, and Why</h2>
+
+      <p>
+        Begin with the group that should worry least. The overwhelming majority of people, walking through the overwhelming majority of public spaces, carrying ordinary devices with ordinary contents, are not being targeted by anyone with the budget and patience to deploy a malicious USB cable in their path. Most attackers are economic actors: they want money, at scale, with the minimum technical investment. Compromising a charging port at a coffee shop is technical investment with a small, random payoff. There are easier ways to commit fraud. Mass-market crime is not why a sophisticated USB attack exists.
+      </p>
+
+      <p>
+        Sophisticated USB attacks exist because some specific person, somewhere, is worth a lot of effort to compromise. Journalists working on sensitive sources. Executives whose laptops contain trade secrets. Engineers whose phones hold credentials to production infrastructure. Diplomats. Researchers in dual-use fields. People whose adversaries are not random scammers but interested institutions — corporations, intelligence services, organized crime with patience. For these readers, a malicious cable left in a hotel room or handed across a customs desk is a credible threat. Not a likely one, on any given day, but credible enough that the cost of ignoring it is asymmetric. If it happens, it matters a lot.
+      </p>
+
+      <p>
+        For a third group — perhaps the most consequential one — the question is not about being personally targeted but about being a vector. System administrators. Software supply-chain engineers. Anyone whose laptop is one trusted handshake away from infrastructure that thousands of other people rely on. A keystroke-injection attack against a single sysadmin is a worthwhile investment for an attacker who wants to get to what the sysadmin can reach. This is the threat model that animates most enterprise USB-port-control policies — and the one most likely to be relevant to anyone reading an essay about hardware security.
+      </p>
+
+      <h2>Why the Probability Argument Misleads</h2>
+
+      <p>
+        It is true, and worth saying, that any given USB port encounter is overwhelmingly likely to be benign. Charge your phone at an airport, use a friend's cable, plug a thumb drive into your laptop — almost always, nothing happens, because almost always, nothing is there to happen.
+      </p>
+
+      <p>
+        But probability is the wrong lens for asymmetric harms.
+      </p>
+
+      <p>
+        Consider an analogy from outside computing. The probability that any given letter in your mailbox is dangerous is essentially zero. Nevertheless, the U.S. Postal Service has, since 2001, screened mail to senior government officials for biological and chemical threats. The screening is not justified by the probability of any individual letter. It is justified by the cost — to the country, not just to the recipient — if the rare bad letter gets through. The threat model is asymmetric: the downside of the rare bad outcome is so severe that even a tiny probability is worth mitigating.
+      </p>
+
+      <p>
+        USB attacks against high-value targets work the same way. The probability is small. The downside, if successful, is enormous. The mitigations are cheap. The math, in those cases, is not subtle.
+      </p>
+
+      <p>
+        For an ordinary person with an ordinary phone, the math runs the other way. The probability is small, the downside of compromise is real but bounded, and the mitigations — while cheap — are also unnecessary. A reasonable person does not run their household by the same threat model as a Senate staffer. That would be paranoid in the literal sense: a misreading of the actual environment.
+      </p>
+
+      <p>
+        The mistake of most writing on this topic is to flatten this distinction. Either everyone is at risk, or nobody is. Both flattening errors are wrong in the same way: they refuse to specify who.
+      </p>
+
+      <h2>What Actually Works</h2>
+
+      <p>
+        For readers who have decided, on the basis of their own threat model, that USB data attacks are worth caring about, the mitigation space is unusually well-understood. The interventions are not exotic. They are not new. They are not even, in most cases, expensive.
+      </p>
+
+      <p>
+        The simplest mitigation is <em>physical isolation</em> of the data lines. A small adapter — sometimes called a USB data blocker, sometimes a "USB condom," sometimes a charge-only adapter — sits between a cable and a port. Inside, the data wires are physically absent. Power can pass through. Data cannot. The mechanism is so simple that it does not require trust in the adapter's software, because the adapter does not have software. The wires are either there or they are not.
+      </p>
+
+      <p>
+        For USB-C, the picture is somewhat more complicated. Modern USB-C cables negotiate power delivery and data role through a side-channel protocol implemented by chips in both ends; "charge-only" in this context cannot be enforced by absence alone. A USB-C data blocker is a more sophisticated device that allows the power-negotiation conversation to proceed but isolates the data lines that carry user data. The principle is the same. The implementation is harder.
+      </p>
+
+      <p>
+        For higher-stakes threat models, the next step up is a <em>device</em> rather than a cable. Hardware between the host and the peripheral that examines USB traffic, enforces policy, and refuses to pass anything that does not match expected device classes. These devices exist in the commercial market for the enterprise and government audiences that need them. They are not, and probably should not be, mass-market products.
+      </p>
+
+      <p>
+        For the most sensitive workflows — the journalist with sources, the engineer with production credentials, the diplomat with classified material — the mitigation is usually procedural rather than technical. Different devices for different contexts. Air gaps between work and travel. Cables that never leave their owner's possession. The technology supports the policy; it does not replace it.
+      </p>
+
+      <h2>The Quiet Conclusion</h2>
+
+      <p>
+        The honest summary of all this is the kind of sentence that does not make headlines: <em>data isolation on USB is a reasonable thing for some people to have, and the people who need it are not, in general, the people the alarming articles are written to scare</em>. The articles are written to scare a mass audience. The actual problem affects a more specific one. And the specific audience, in our experience, mostly already knows.
+      </p>
+
+      <p>
+        What is missing is not awareness among the people at risk. It is honest writing aimed at the people who are <em>not</em> at risk — telling them, calmly, that they probably do not need to worry, and that if they want to worry productively, here is the small set of cases that actually matter. That kind of writing is rare because it is harder to monetize. Panic sells products. Calm explanation sells fewer of them.
+      </p>
+
+      <div class="interlude" style="font-family: var(--serif-display); font-style: italic; font-weight: 300; font-size: 1.5rem; line-height: 1.35; color: var(--ink); border-left: 2px solid var(--accent); padding-left: 1.5rem; margin: 2rem 0; max-width: 32rem;">
+        Panic sells products. Calm explanation sells fewer of them.
+      </div>
+
+      <p>
+        This is, we will admit, a little awkward to write at the bottom of a page funded by a company that makes products in this category. We address that awkwardness in the footer below, with the kind of disclosure we think the topic deserves. But the awkwardness is the point: an educational project on physical trust either earns its name by being honest about its incentives, or it does not. We would rather lose a sale to a reader who concluded they did not need the product than gain one from a reader who bought out of misplaced fear.
+      </p>
+
+      <hr>
+
+      <h2>A Technical Appendix</h2>
+
+      <h3>For readers who want the engineering</h3>
+
+      <p>
+        The body of this essay stays at the level of threat model. For readers with a hardware or security background, what follows treats the underlying mechanisms more carefully.
+      </p>
+
+      <h3>BadUSB and the firmware question</h3>
+
+      <p>
+        The defining attack in this category, demonstrated by Karsten Nohl and Jakob Lell at Black Hat 2014, is now generally known as <em>BadUSB</em>. The core observation is not about cables but about peripherals: USB devices identify themselves to the host through descriptors that the host accepts at face value. A device whose firmware is rewritten to present itself as a different class — a flash drive that re-enumerates as a keyboard, a webcam that re-enumerates as a network adapter — can do things the user did not authorize, on the user's own machine, with the user's own credentials and trust relationships.
+      </p>
+
+      <p>
+        The reason this attack is hard to defend against is that the malicious behavior is in firmware that the host has no general way to inspect. Antivirus operates at the file-system layer; BadUSB operates at the bus enumeration layer, before any files are involved. Defense, where it exists, comes from operating-system policies that restrict which device classes are allowed to connect — Windows Group Policy, Linux udev rules, macOS configuration profiles — and from physical port-control products that enforce these policies in hardware. Detection is also possible at the network layer when the malicious device enumerates as a network interface, but this is reactive rather than preventive.
+      </p>
+
+      <h3>USB-C Power Delivery and the e-marker</h3>
+
+      <p>
+        USB-C complicates the older mental model of a "dumb cable" because USB-C cables, particularly those rated for higher power or higher data rates, contain a small chip called an <em>e-marker</em>. The e-marker communicates with the source and the sink over the Configuration Channel (CC) lines to negotiate what the cable can carry: 60W versus 100W versus 240W, USB 2.0 versus USB 3.x versus Thunderbolt, with or without DisplayPort Alternate Mode.
+      </p>
+
+      <p>
+        From a security standpoint, the e-marker has two consequences. First, the cable now contains a microcontroller, which is by definition a programmable device. Researchers including Mike Grover have demonstrated that this microcontroller can be replaced with one that does more than identify the cable — including, in the case of the well-known O.MG Cable, a wireless radio and keystroke-injection capability. Second, because USB-C power negotiation depends on the e-marker, any data-blocking adapter for USB-C cannot simply omit the data lines the way an old USB-A blocker could; it must allow the CC channel to function while isolating the data path. This is engineering work, not absence.
+      </p>
+
+      <h3>USB Power Delivery as an attack surface</h3>
+
+      <p>
+        Power Delivery (PD) is its own protocol stack running over the CC line, with messages, state machines, and negotiated contracts. As with any protocol, implementation bugs in PD stacks have been found and exploited. In 2023 and 2024, researchers including those at the University of Florida demonstrated attacks that abused malformed PD messages to corrupt host state or cause denial-of-service conditions in chargers and laptops. These attacks are less general than BadUSB — they exploit specific implementation flaws rather than the protocol structure itself — but they illustrate that the security boundary in USB-C is not "data versus power" but rather "the user's data versus everything else, including the negotiation protocols that allow charging to happen at all."
+      </p>
+
+      <h3>What "data isolation" actually means</h3>
+
+      <p>
+        In a USB-A context, data isolation is straightforward: the D+ and D− wires are physically absent from the cable or adapter, and no data signal can cross. There is no software, no firmware, no protocol — the wires are not there.
+      </p>
+
+      <p>
+        In a USB-C context, the term covers a range of designs. The minimum standard is a device that allows CC-channel power negotiation but does not pass the USB 2.0 D+/D− lines or the SuperSpeed differential pairs. A more conservative design also restricts the CC channel to power-relevant message types and refuses to pass alternate-mode entry messages that could open a DisplayPort or Thunderbolt path. The most conservative designs allow only specific PD message types in a strict whitelist and treat the CC line as an attack surface in its own right. A reader evaluating a "USB-C data blocker" product is well advised to ask, specifically, what the device's policy is on each of these channels — not just whether it "blocks data."
+      </p>
+
+      <h3>Further reading</h3>
+
+      <p>
+        Nohl and Lell's original BadUSB presentation slides are still available from the 2014 Black Hat archive and are the right starting point. The USB Implementers Forum publishes the USB Power Delivery specification at usb.org; it is dense but readable. For the security analysis of USB-C specifically, papers from the University of Florida's FICS Research group (search "USB-C security" in their publication list) are the most rigorous treatment in the academic literature. The work of researcher Mike Grover on the O.MG Cable, while commercially packaged, has the side effect of being one of the better public documentations of what a weaponized USB-C cable can actually do; his published descriptions are useful even if the product itself is more for red teams than for defenders.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>A note on our interests.</strong> ZKNOT, Inc. — the company that funds this educational project — manufactures a USB-C data isolation product. We are, in plain language, in the business of selling some of the mitigations described above. We have tried to write this essay in the way we would want to read it as a customer: with the honest distinctions between who needs this category of product and who does not, with the actual mechanisms named, and without flattening the threat model into a sales argument. The company is not named or linked from the body of the essay deliberately. A reader who reaches the end of this page and concludes they do not need a data blocker has been served by the essay as well as we know how to serve them.</p>
+        <p><strong>Corrections.</strong> If you find an error in this essay, particularly in the technical appendix, please write to <a href="mailto:editors@zknot.org">editors@zknot.org</a>. We will correct it and note the correction here.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> — the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> — the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> — this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter — yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>© 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
