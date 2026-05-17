@@ -4,3 +4,7 @@ Thumbs.db
 .idea/
 .vscode/
 node_modules/
+
+# Cloudflare
+.wrangler/
+.dev.vars

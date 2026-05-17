@@ -1,0 +1,6 @@
+name = "zknot-org"
+compatibility_date = "2026-05-17"
+
+[assets]
+directory = "."
+not_found_handling = "404-page"
