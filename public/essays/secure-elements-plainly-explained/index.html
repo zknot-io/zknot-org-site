@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Elements, Plainly Explained &mdash; ZKNOT</title>
+  <meta name="description" content="The tamper-resistant chip in your passport, your bank card, and your phone — what it actually guarantees, and the much shorter list of things it does not.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>Vol. I &middot; Essay &#8470; 006</span>
+    <span>Published 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Essay &#8470; 006 &middot; Hardware Trust</div>
+      <h1>Secure Elements, Plainly Explained</h1>
+      <p class="dek">
+        The tamper-resistant chip in your passport, your bank card, and your phone &mdash; what it actually guarantees, and the much shorter list of things it does not.
+      </p>
+      <p class="essay-byline">By the Editors &middot; Salt Lake City &middot; Approx. 8 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        You almost certainly own several, and you have probably never thought about any of them. There is one in your passport. There is one in every bank card you have been issued in the last fifteen years. There is one in the SIM card in your phone, and a second one elsewhere in the same phone holding the keys to your fingerprint. If you drive a car built recently, there is one in the fob in your pocket.
+      </p>
+
+      <p>
+        They are called secure elements, and they are among the most quietly successful pieces of engineering in modern life. They are also routinely described in ways that promise more than they deliver &mdash; not usually dishonestly, but because the short version of what they do is genuinely hard to say without saying too much.
+      </p>
+
+      <p>
+        This essay is the longer version.
+      </p>
+
+      <h3>A small computer built around a refusal</h3>
+
+      <p>
+        A secure element is a complete computer. It has a processor, a little memory, and storage. What distinguishes it from the processor running your laptop is not speed or capability &mdash; by any ordinary measure it is feeble &mdash; but the fact that almost everything it can do has been deliberately taken away.
+      </p>
+
+      <p>
+        It has no general-purpose input. It cannot be persuaded to run new software. It communicates over a deliberately narrow channel, usually a two-wire bus, and it will answer only a fixed vocabulary of commands. Ask it something outside that vocabulary and it does not improvise; it returns an error.
+      </p>
+
+      <p>
+        That narrowness is the entire design. A chip that can do only forty things can be reasoned about exhaustively in a way that a chip which can do anything cannot. The security does not come from the chip being clever. It comes from the chip being incapable.
+      </p>
+
+      <h3>The one trick</h3>
+
+      <p>
+        The central thing a secure element does is hold a private key, and the way it holds one is the whole idea.
+      </p>
+
+      <p>
+        A key pair is generated <em>inside</em> the chip. The private half is written to a slot in the chip's own storage and is never transmitted anywhere. The public half is read out and published freely, which is what public halves are for.
+      </p>
+
+      <p>
+        Here is the part that matters: the command set has no instruction for reading the private key back out. Not a privileged one, not a factory one, not one behind a password. The operation simply does not exist in the vocabulary. You can ask the chip to <em>use</em> the key &mdash; sign this, decrypt that &mdash; and it will hand you the result. You cannot ask it for the key.
+      </p>
+
+      <p>
+        This is a different and much stronger claim than encryption. An encrypted file is a secret you still possess, protected by another secret you also possess. A key in a secure element is a secret you do not possess. You own the chip, you hold it in your hand, and you cannot read your own key out of it.
+      </p>
+
+      <p>
+        The chips are then built to keep that true under attack. The storage is laid out to resist microscopic inspection. The package will detect and respond to being opened, to unusual voltages, to unusual temperatures, to clocks running faster than physics should allow. Power consumption is smoothed so that the pattern of current drawn while signing does not leak the bits of the key &mdash; an attack that is far more practical than most people expect.
+      </p>
+
+      <p>
+        None of this makes extraction impossible. It makes it expensive: a laboratory, specialist equipment, a destroyed sample or several, and time. Security of this kind is always an economic claim rather than a mathematical one, and reputable manufacturers are careful to say so. The certification regimes measure exactly that &mdash; how much effort, by an attacker with how much money.
+      </p>
+
+      <h3>What "certified" is actually certifying</h3>
+
+      <p>
+        You will see Common Criteria certifications quoted for these parts, usually as an EAL number. One widely used element is documented by its manufacturer as <em>based on Common Criteria EAL6+ (high) certified hardware.</em>
+      </p>
+
+      <p>
+        Read that sentence again, because its shape is doing careful work. It is not "this product is certified." It is "this product is based on certified hardware." The evaluation covers the silicon and a defined set of its behaviours, under stated assumptions, in a stated configuration. It does not extend outward to the board the chip is soldered to, the firmware talking to it, the enclosure around that, or the company shipping it.
+      </p>
+
+      <p>
+        This is the single most common place where a true statement becomes a misleading one. A certification belonging to a component is quoted as though it belonged to the product. The chip's certificate is real, and it is the chip's.
+      </p>
+
+      <h3>The question almost nobody asks</h3>
+
+      <p>
+        Here is the part that is missing from nearly every popular explanation, and it is the part that decides whether any of the above matters.
+      </p>
+
+      <p>
+        The key cannot be extracted. Fine. <strong>But who is allowed to ask the chip to use it?</strong>
+      </p>
+
+      <p>
+        Secure elements answer this with something usually called an access condition: a rule, stored alongside each key, saying what must be true before the chip will perform an operation with it. The rule is chosen when the chip is provisioned, and the available settings are roughly what you would expect. <em>Never</em> &mdash; the key exists but this operation is disabled permanently. <em>Always</em> &mdash; perform the operation for anyone who asks. Or a conditional setting: perform it only on presentation of a credential the chip itself checks first.
+      </p>
+
+      <p>
+        Most of the security a buyer imagines lives in that setting, and it is invisible from outside. Two products can contain the identical certified chip, holding an identically unextractable key, and differ completely in what that key is worth &mdash; because one of them requires a credential before it will sign and the other will sign for anybody who puts the right voltage on the right pin.
+      </p>
+
+      <p>
+        If the access condition is <em>always</em>, then the practical meaning of "the key can never leave the chip" is narrower than it sounds. The key does not need to leave. Whoever physically holds the chip can ask it to sign whatever they like, forever. Desolder it from one board, wire it to another, and it will cooperate exactly as before. It is not a stolen key; it is a working signing service that happens to be six millimetres across.
+      </p>
+
+      <p>
+        This is not a defect in the chips. It is a setting, and there are good reasons to choose each value. It is a defect in how we talk about them &mdash; because "the private key never leaves the secure element" is repeated constantly, and it describes the key while saying nothing at all about the authority to use it.
+      </p>
+
+      <h3>A worked example you may own</h3>
+
+      <p>
+        A hardware security key &mdash; the kind you tap to log into an account &mdash; is a secure element with a specific and well-chosen set of these answers. Its keys are generated on the device and cannot be exported. Many models ship with an attestation certificate, signed by the manufacturer, that lets a service confirm the device really is what it claims to be rather than software pretending. Using a key requires a physical touch, so remote malware cannot silently authenticate on your behalf.
+      </p>
+
+      <p>
+        That is a genuinely strong configuration, and it is worth understanding <em>why</em> it is strong. Not because the chip is certified &mdash; though it is &mdash; but because of the accumulated choices around it: where the key was born, what refuses to export it, what must be presented before it will sign, and who vouches for the device.
+      </p>
+
+      <p>
+        Note also what the touch proves and what it does not. It proves a human was physically present and pressed something. The device has no screen, so it cannot show you what you are approving. Presence and comprehension are different facts, and only one of them is being captured.
+      </p>
+
+      <h3>The shorter list</h3>
+
+      <p>
+        A secure element holds a key that cannot practically be read out. That is the guarantee, and it is a real one.
+      </p>
+
+      <p>
+        It does not tell you that the software asking for a signature is the software you believe is running. The chip answers the bus; it has no way to inspect the machine it is soldered to.
+      </p>
+
+      <p>
+        It does not tell you a person approved anything. A signature proves a key was used. Whether a human was present, whether they understood what they were agreeing to, whether they agreed at all &mdash; none of that is in the signature, and none of it can be added by the chip alone.
+      </p>
+
+      <p>
+        It does not tell you <em>which</em> device signed, unless somebody has separately recorded that this specific key belongs to that specific device and made the record available to whoever is checking. An unregistered key is just a number that verifies against itself.
+      </p>
+
+      <p>
+        And it does not make a claim true. It makes a claim <em>attributable</em>: this came from something holding this key. Everything past that &mdash; what the thing is, who held it, what they meant &mdash; is a question about the system around the chip, and that system is where nearly all of the real difficulty lives.
+      </p>
+
+      <p>
+        The chip is the easy part. That it works so well, so invisibly, in so many billions of objects, is exactly why it is so often asked to carry weight it was never built to hold.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>A note on our interests.</strong> ZKNOT, Inc. &mdash; the company that funds this educational project &mdash; builds hardware attestation devices using the secure elements described above, and therefore has an obvious interest in how they are understood. In that spirit: the signing keys in ZKNOT's currently shipped articles use the <em>always</em> access condition discussed here. The element will sign for whoever holds it. We publish that limitation on the devices themselves and on our verification service, because a claim ceiling that is only honoured when convenient is not a ceiling. Anyone can check what a given record does and does not establish at <a href="https://verifyknot.io">verifyknot.io</a>.</p>
+        <p><strong>Corrections.</strong> If you find an error in this essay we would like to know. Write to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance &rarr;</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
