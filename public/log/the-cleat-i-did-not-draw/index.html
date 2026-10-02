@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The cleat I did not draw &mdash; ZKNOT Log</title>
+  <meta name="description" content="A printed cradle for the label printer, and the small discipline that keeps a copied dimension from becoming a measured one.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>The Workshop &middot; Fab log</span>
+    <span>Thursday 1 October 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Fab log &middot; Thursday 1 October 2026</div>
+      <h1>The cleat I did not draw</h1>
+      <p class="dek">
+        A printed cradle for the label printer, and the small discipline that keeps a copied dimension from becoming a measured one.
+      </p>
+      <p class="essay-byline">By William Shane Wilkinson &middot; Salt Lake City &middot; Approx. 4 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        The label printer has been living on its side on the bench for months, which is fine until you need the tape to feed and the thing slides. So this week it got a cradle: a printed cup that holds it bottom-end down, hanging off the cleat rail of a stackable bin.
+      </p>
+
+      <h3>The cleat I did not draw</h3>
+
+      <p>
+        The interesting part is the part I did not do.
+      </p>
+
+      <p>
+        The cradle has to hook onto a particular bin's stacking cleat, and that cleat is a fussy little bit of geometry &mdash; hooks, a back wall, specific offsets. The obvious move is to open the bin's model, measure the cleat, and redraw it in your own file. That is a transcription, and transcriptions are where errors are born. A number gets read, retyped, and from then on it is treated as though it were measured.
+      </p>
+
+      <p>
+        So the generator does not redraw it. It loads the bin's own mesh, cuts everything behind the inner face of its back wall, and unions that slab &mdash; verbatim, the original triangles &mdash; with a cup sized for the printer. The cleat in my part is not a copy of the bin's cleat. It is the bin's cleat.
+      </p>
+
+      <h3>Proving it stayed that way</h3>
+
+      <p>
+        A claim like that is worth nothing unless something checks it, so the script is both the renderer and its own acceptance gate. It measures the mesh it just produced:
+      </p>
+
+      <pre><code>PASS  watertight: True
+PASS  single body: 1
+PASS  cleat volume (y&lt;14.8) unchanged: src 9641.4 mm3  out 9641.4 mm3
+PASS  cavity clear: 0/2664 probe pts hit material
+PASS  walls/floor present (probe must hit): [True, True, True]
+PASS  measured inner width: 135.00 mm (declared 135.00)</code></pre>
+
+      <p>
+        The third line is the one that matters. It computes the volume of the cleat region in the source and in the output and requires them to be identical. If a boolean operation nicked the cleat, or a translation drifted it by a tenth of a millimetre, that number moves and the build fails. 9641.4 to 9641.4 is not a hope that the geometry survived; it is a measurement that it did.
+      </p>
+
+      <p>
+        The fifth line is there because of a mistake I keep making in other contexts. The fourth line fires a few thousand probe points into the cavity and requires that none of them hit material &mdash; an absence test. An absence test over a probe that cannot detect anything passes perfectly and tells you nothing. So the fifth line fires probes at the walls and floor and requires that they <strong>do</strong> hit. It proves the instrument works before the instrument is trusted. Every check that reports "nothing found" needs a sibling that proves it could have found something.
+      </p>
+
+      <h3>The number I do not trust</h3>
+
+      <p>
+        The cup is sized from a footprint I took off a web page, and the script says so in its own header: the dimensions are marked PROVISIONAL, with an instruction to put calipers on the actual unit and re-run.
+      </p>
+
+      <p>
+        It will probably print fine. That is not the point. A dimension from a product listing and a dimension from a caliper are different kinds of fact, and the moment they are written in the same font in the same file, the difference disappears. Marking it costs one line and keeps the distinction alive until somebody does the measuring.
+      </p>
+
+      <h3>Seven notifications, two problems</h3>
+
+      <p>
+        The other thing that happened this week is that I looked at my own screen and found seven stacked critical alerts reporting two facts. One alarm fired daily from two different channels; neither replaced its predecessor. By the time they were seven deep, the correct response to them had become "dismiss," which is precisely the outcome an alarm exists to prevent.
+      </p>
+
+      <p>
+        They now replace in place, and they name the thing they are about rather than the file they were written to. The count on screen is the number of problems, not the number of days those problems have been true.
+      </p>
+
+      <p>
+        A quiet week otherwise, and this log is the place that gets to say so.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>What this is.</strong> A weekly log from the bench at ZKNOT, Inc., written by its founder. It is not part of the essay series and does not claim that series' editorial independence. Corrections to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
