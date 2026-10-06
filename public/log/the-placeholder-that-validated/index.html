@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The placeholder that validated &mdash; ZKNOT Log</title>
+  <meta name="description" content="A tool accepted the literal text YYYY-MM-DD as a date, signed it, and would have spent a press to find out. Three things this week that looked like they were working.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>The Workshop &middot; Fab log</span>
+    <span>Thursday 8 October 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Fab log &middot; Thursday 8 October 2026</div>
+      <h1>The placeholder that validated</h1>
+      <p class="dek">
+        A tool accepted the literal text YYYY-MM-DD as a date, signed it, and would have spent a press to find out. Three things this week that looked like they were working.
+      </p>
+      <p class="essay-byline">By William Shane Wilkinson &middot; Salt Lake City &middot; Approx. 5 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        Posting Thursday's log on Tuesday, because Thursday is a vendor fair and I will be in a room shaking hands rather than at a bench.
+      </p>
+
+      <p>
+        Three things this week, and they turned out to be the same thing three times: something that looked like it was working.
+      </p>
+
+      <h3>The placeholder that validated</h3>
+
+      <p>
+        I wrote a small tool that enrols a device &mdash; walks it through signing a challenge, then registers the result. It takes a manufacture date on the command line.
+      </p>
+
+      <p>
+        The first time I ran it against real hardware, I passed it the literal string `YYYY-MM-DD`. Not a date. The placeholder from the help text.
+      </p>
+
+      <p>
+        It accepted it. It signed it into the challenge. It printed it back out as the manufacture date, in the body of the record, with no complaint anywhere.
+      </p>
+
+      <p>
+        What saved me is that this was a dry run. A real run would have reached the device, <strong>spent an actual signature</strong>, and only then failed at the server with the date it should have rejected at the start. The signing element I use is rate-limited by design &mdash; I pace presses six seconds apart and treat each one as a thing I do not get back. Burning one to discover a typo is the specific cost I had designed the pacing to avoid.
+      </p>
+
+      <p>
+        The fix is dull and that is the point: parse the date, bound it to a range the company could plausibly have existed in, and refuse before the device is touched at all. `YYYY-MM-DD` is refused now. So are 2025-12-31 and 2030-01-01, both of which are perfectly well-formed dates and neither of which can be true.
+      </p>
+
+      <p>
+        <strong>Well-formed is not the same as correct, and this is the second time that exact sentence has cost me something.</strong> The first was an identity code: a placeholder written as `XXXX-XXXX-XXXX` passed the format check cleanly, because the character set the format uses happens to include X. The shape was valid. The thing it named did not exist.
+      </p>
+
+      <p>
+        A validator that only checks shape will wave through every placeholder you ever write, and placeholders are precisely the values most likely to reach production by accident.
+      </p>
+
+      <h3>The import that broke every device</h3>
+
+      <p>
+        A separate one, found the same week: a start-up call had been failing on every device of one family since a specific commit. The cause was a missing import &mdash; a helper that converts hex to bytes, referenced and never brought in.
+      </p>
+
+      <p>
+        Nothing subtle. It crashed, loudly, every time. Which raises the only interesting question: it had been broken for a while, so what was I running that never touched it? The honest answer is that my testing had drifted onto a path that did not exercise that call, and nothing told me, because a test you are not running does not report that it is not running.
+      </p>
+
+      <h3>The fix I did not build</h3>
+
+      <p>
+        The third one is the one I am most pleased about, and it involved writing no code.
+      </p>
+
+      <p>
+        A verification endpoint has been refusing every device that calls it. That is not a bug in the usual sense &mdash; a public page cannot safely hold the credential that call needs, so refusing is the correct behaviour. But the effect is a feature that does not work for anyone.
+      </p>
+
+      <p>
+        I drafted two fixes. Both worked by loosening the check.
+      </p>
+
+      <p>
+        Neither got built. The ruling was: do not weaken the thing that makes the record worth having in order to make a convenience work, and write down instead what a future product would need in order to do this properly &mdash; a credential issued per attempt, rather than one sitting in a page where anybody can read it.
+      </p>
+
+      <p>
+        So the endpoint still refuses, the copy that implied otherwise has been corrected, and the requirement is recorded for a product that does not exist yet. That is a worse week on paper than shipping the fix would have been. It is a better one for anyone who has to trust the result later.
+      </p>
+
+      <h3>The pattern</h3>
+
+      <p>
+        Three failures, one shape. A placeholder that passed its check, a call that nothing was calling, and a fix that would have worked by quietly lowering the bar.
+      </p>
+
+      <p>
+        None of them announced itself. The first two were found by running things against real hardware rather than against my expectations, and the third by asking what the fix actually cost rather than whether it worked.
+      </p>
+
+      <p>
+        Normal service resumes Thursday, from a conference hall.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>What this is.</strong> A weekly log from the bench at ZKNOT, Inc., written by its founder. It is not part of the essay series and does not claim that series' editorial independence. Corrections to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
