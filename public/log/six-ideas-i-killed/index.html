@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Six ideas I killed in one day &mdash; ZKNOT Log</title>
+  <meta name="description" content="I ran the prior-art searches I should have run first. Then I tried to invent my way out, and checked every idea against the record the same day. Here are the ones that died, and who got there first.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>The Workshop &middot; Fab log</span>
+    <span>Thursday 15 October 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Fab log &middot; Thursday 15 October 2026</div>
+      <h1>Six ideas I killed in one day</h1>
+      <p class="dek">
+        I ran the prior-art searches I should have run first. Then I tried to invent my way out, and checked every idea against the record the same day. Here are the ones that died, and who got there first.
+      </p>
+      <p class="essay-byline">By William Shane Wilkinson &middot; Salt Lake City &middot; Approx. 7 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        This year I filed 22 U.S. provisional patent applications. None has been examined, and a provisional is only an option on a patent, not a patent.
+      </p>
+
+      <p>
+        This week I finally did the thing I should have done before the first one: a blunt search, idea by idea, for who already built it. The results were humbling. Most of what I filed sits close to things that already exist, and some of it is older than my company by decades.
+      </p>
+
+      <p>
+        So I tried something different. Instead of defending the filings, I tried to invent past them. I asked for ideas far out on the edge, pushed past the first and second answers, and then put every idea through the same test before the day ended: one sentence on the problem it fixes, then a table with three columns. The feature. Who already does it. The source.
+      </p>
+
+      <p>
+        I did the searching with an AI research assistant. It found and read the references; I made the calls. Nine ideas went in. Six died the same day. Here they are, with the people who got there first.
+      </p>
+
+      <h3>1. The enclosure is the key</h3>
+
+      <p>
+        The idea: fill the device with clear potting full of random particles, read the pattern from inside, and derive the key from it. Break the potting and the pattern changes, so the key is gone.
+      </p>
+
+      <p>
+        Kömmerling and Kömmerling described exactly that in a patent with a 1999 priority date: randomly dispersed particles in the encapsulation, light sources and sensors inside, the resulting pattern used to produce a cryptographic key, destroyed by tampering. A later family adds granules in potting read as a fingerprint, and Fraunhofer built a capacitive version.
+      </p>
+
+      <p>
+        Lesson: if an idea is physical and elegant, someone in a smart-card lab had it before the turn of the century.
+      </p>
+
+      <h3>2. The seal that reports its own breaking</h3>
+
+      <p>
+        The idea: a seal with a wire loop that, once opened, says so in a cryptographically protected message.
+      </p>
+
+      <p>
+        Nuclear safeguards solved this for parties who do not trust each other. The VACOSS electronic seal family logs openings, and a 1999 version appends a cryptographic signature to its data. Today you can buy a tag from NXP that permanently latches an opened loop and reports it under a cryptographic check every time it is read.
+      </p>
+
+      <p>
+        Lesson: the people who inspect each other's nuclear material had the hardest version of my problem, and they had it first.
+      </p>
+
+      <h3>3. A hidden duress signal</h3>
+
+      <p>
+        The idea: if someone forces you to sign, you sign in a way that looks normal but carries a hidden flag in the signature's randomness, visible only to an authority.
+      </p>
+
+      <p>
+        Simmons described hidden channels inside signatures in 1983. Two Polish papers from 2013 apply it to exactly this case, a coerced signer leaving a warning inside a standard signature. Amazon has a patent on duress signatures from a hardware token.
+      </p>
+
+      <p>
+        And I could not have built it anyway. The signing chip I use chooses its own random number, so nothing outside it can hide anything there.
+      </p>
+
+      <p>
+        Lesson: read the datasheet before the literature. Two of my nine ideas failed on the part itself.
+      </p>
+
+      <h3>4. Telling a finger from a robot</h3>
+
+      <p>
+        The idea: measure how the button is pressed, the force over time, so a solenoid pressing it can be told apart from a person.
+      </p>
+
+      <p>
+        A 2021 display-maker patent decides whether the thing pressing a surface is a human finger from the force at several moments in one press. Worse, a 2016 study built a robot from Lego that fooled touch-behavior checks and raised false accepts as much as five times.
+      </p>
+
+      <p>
+        Lesson: anything a sensor can measure, someone can build a machine to reproduce.
+      </p>
+
+      <h3>5. Proving two people were in the same room</h3>
+
+      <p>
+        The idea: a hand-off between two custodians counts only if both devices prove, by timing radio signals, that they were within a few centimeters.
+      </p>
+
+      <p>
+        Brands and Chaum published distance bounding in 1993, and secure ultra-wideband ranging is now an IEEE standard. A custody-transfer patent already starts hand-offs in proximity.
+      </p>
+
+      <p>
+        The deeper problem: distance bounding stops an outsider relaying a signal, but not two people who cooperate. In custody, two cooperating people are exactly the risk.
+      </p>
+
+      <p>
+        Lesson: a defense against outsiders can be worthless when the insiders are the threat.
+      </p>
+
+      <h3>6. A signature powered by the press</h3>
+
+      <p>
+        The idea: no battery. The press itself generates the energy to sign, so a signature cannot exist without the physical act.
+      </p>
+
+      <p>
+        EnOcean has sold battery-free switches that send authenticated messages powered by the press since about 2013. And the physics does not work for my case: one press harvests roughly a tenth of a millijoule to one millijoule, and one signature on my chip costs roughly one to three. I am about ten times short.
+      </p>
+
+      <p>
+        Lesson: do the energy budget before the novelty search. It is faster, and it does not care how good the idea sounds.
+      </p>
+
+      <h3>What the six have in common</h3>
+
+      <p>
+        Every mechanism I could imagine at a desk had already been built by a well-funded lab: a chipmaker, a standards body, a safeguards program. Imagination alone does not beat them in their own field.
+      </p>
+
+      <p>
+        What did narrow the field was the threat. Most security hardware protects the person holding it. In custody, the person holding the device may be the one with a reason to lie, and the party being protected is whoever checks the record later. Ideas that start from that problem were rarer, and they are the ones still standing.
+      </p>
+
+      <p>
+        Three are. I am not describing them here.
+      </p>
+
+      <h3>What I am keeping</h3>
+
+      <p>
+        The method. Problem first, then the table, then the chip's datasheet, then a verdict I do not get to grade myself. It took one day to learn more about my own field than the year of filings taught me.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>What this is.</strong> A weekly log from the bench at ZKNOT, Inc., written by its founder. It is not part of the essay series and does not claim that series' editorial independence. Corrections to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
