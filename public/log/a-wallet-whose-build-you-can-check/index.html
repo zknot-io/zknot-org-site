@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A wallet whose build you can check &mdash; ZKNOT Log</title>
+  <meta name="description" content="I opened a founding run for a hardware wallet that doesn&#x27;t exist yet. Here is what it&#x27;s meant to do differently, what I checked before saying so, and what the deposit buys.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>The Workshop &middot; Notebook</span>
+    <span>Thursday 15 October 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Notebook &middot; Thursday 15 October 2026</div>
+      <h1>A wallet whose build you can check</h1>
+      <p class="dek">
+        I opened a founding run for a hardware wallet that doesn't exist yet. Here is what it's meant to do differently, what I checked before saying so, and what the deposit buys.
+      </p>
+      <p class="essay-byline">By William Shane Wilkinson &middot; Salt Lake City &middot; Approx. 4 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        Yesterday I put a hardware wallet on the ZKNOT site. It's called Ciborium. No unit exists yet, and there's no ship date. You can reserve one anyway, for a $49 deposit you can get back any time before it ships.
+      </p>
+
+      <p>
+        That's an odd thing to announce, so here is what it's for.
+      </p>
+
+      <h3>The part nobody shows you</h3>
+
+      <p>
+        Every serious hardware wallet already proves one thing well: that the device in your hand is genuine. Trezor, BitBox, Foundation, Coldcard, Blockstream and Ledger all run some version of a check that the chip inside was made and keyed by them.
+      </p>
+
+      <p>
+        Ledger is candid about the limit. Its own threat model says the genuine check "cannot verify the device's physical supply chain history." It proves the chip is theirs, but not what happened to the device between the factory and your desk.
+      </p>
+
+      <p>
+        That gap is what ZKNOT works on. Every device we sell leaves a signed record on a public rail that anyone can look up later. Ciborium applies that to a wallet, one step at a time:
+      </p>
+
+      <p>
+        - the bare board arriving, and the batch it came from - the secure element being provisioned, and the public key it produced - the firmware written to it, by hash, so you can compare it with the published build - its test results - it being sealed, packed and shipped
+      </p>
+
+      <p>
+        All of it happens in one place, by us. No contract manufacturer in the middle. One party to hold to account, and that party publishes its records.
+      </p>
+
+      <h3>What I checked before saying "different"</h3>
+
+      <p>
+        Before I wrote that on the page, I went through the published documentation of six wallet makers. All six prove the device is genuine. None of them, as far as I found, publishes a per-unit record of each build step that a buyer can look up later. Two others I couldn't get a clear answer on.
+      </p>
+
+      <p>
+        That's a narrower claim than it sounds, and I want to be exact about it. A record signed by us is still our word about what happened at each step. It doesn't make the statement true, and the time on it is our clock. What changes is how much of the build you get to see, and that you can look at it any time, not that you stop having to trust the maker. If you know a wallet that already does this, tell me. I'd rather know.
+      </p>
+
+      <h3>Why the deposit</h3>
+
+      <p>
+        Because the people who put money down early are the ones I want to build it with. A deposit starts founder-level support straight away: you work with me, one on one, by video call or email, and what you need feeds into the design.
+      </p>
+
+      <p>
+        The terms are on the page and I'll repeat them here. It's a prototype and the design will change. The deposit is fully refundable before your unit ships. The balance gets set only when the hardware is real, and you'll see what cleared before you're asked for anything more. If it hasn't shipped 30 days after your deposit, I'll write with an expected date and you can cancel instead.
+      </p>
+
+      <p>
+        The page, the terms and the deposit link are at <a href="https://zknot.io/ciborium">zknot.io/ciborium</a>.
+      </p>
+
+      <h3>The name</h3>
+
+      <p>
+        ZKNOT's display device is Ostensor, from the vessel that shows. A ciborium is the vessel that keeps. A wallet keeps.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>What this is.</strong> A notebook entry from the bench at ZKNOT, Inc., written by its founder. It is not part of the essay series and does not claim that series' editorial independence. Corrections to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
