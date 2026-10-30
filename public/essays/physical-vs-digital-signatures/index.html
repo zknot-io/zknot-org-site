@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physical vs. Digital Signatures &mdash; ZKNOT</title>
+  <meta name="description" content="A signature on a PDF and a signature on an atom are not the same kind of thing. Why the difference matters in court and in customs.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>Vol. I &middot; Essay &#8470; 004</span>
+    <span>Published 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Essay &#8470; 004 &middot; Signatures &amp; Evidence</div>
+      <h1>Physical vs. Digital Signatures</h1>
+      <p class="dek">
+        A signature on a PDF and a signature on an atom are not the same kind of thing. Why the difference matters in court and in customs.
+      </p>
+      <p class="essay-byline">By the Editors &middot; Salt Lake City &middot; Approx. 12 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        Consider two signatures made on the same afternoon.
+      </p>
+
+      <p>
+        The first is on a lease. It arrives as a PDF, you click a box, and a few seconds later the document comes back carrying a small panel that says the signature is valid. The second is on a shipping container at a factory loading dock. Nobody writes anything. A worker threads a steel bolt through the door hardware, snaps it shut, and copies the number stamped into the bolt onto the paperwork that will travel with the cargo.
+      </p>
+
+      <p>
+        Both are meant to be relied on later by a stranger: a judge in the first case, a customs officer in the second. But they are not the same kind of thing. One is a claim about a sequence of bytes. The other is a claim about a physical object, and the state it was in at a particular moment. The difference sounds academic until someone disputes the claim, and then it decides almost everything about how the dispute goes.
+      </p>
+
+      <p>
+        This essay is about what each kind of signature establishes, what it does not, and why the hard part moves depending on which side of the screen the signed thing lives on.
+      </p>
+
+      <h3>What ink was asked to do</h3>
+
+      <p>
+        The legal habit of demanding a signature is old. England's <em>Act for prevention of Frauds and Perjuryes</em> of 1677, still known as the Statute of Frauds, barred certain lawsuits unless the agreement was "in Writeing and signed by the partie to be charged therewith." The point was evidential. A signed writing was harder to invent after the fact than a remembered conversation.
+      </p>
+
+      <p>
+        A handwritten signature does surprisingly little on its own. It is a mark, and marks can be copied. What it has going for it is that it is made by a particular hand, and a hand has habits. When a signature is disputed, the law tests it against them. The U.S. Federal Rules of Evidence, for example, let handwriting be authenticated by "a nonexpert's opinion that handwriting is genuine, based on a familiarity with it that was not acquired for the current litigation," or by "a comparison with an authenticated specimen by an expert witness or the trier of fact." In plain terms: someone who knows your hand says it is yours, or someone compares it with writing already known to be yours.
+      </p>
+
+      <p>
+        Where the stakes justify it, a third person is brought in at the moment of signing. A notary public's role, as the National Notary Association describes it, begins with screening the signer "for identity, volition and awareness": is this the person they claim to be, are they signing willingly, do they understand what they are signing. A document carrying a notary's certificate of acknowledgment is treated by the Federal Rules as self-authenticating; it needs no further evidence of authenticity to be admitted.
+      </p>
+
+      <p>
+        Notice where the strength of the wet-ink system comes from. Not from the mark, which is easy to imitate, but from three things around it. The mark is physically fused to the paper the signer saw. It carries a trace of a specific human body. And for important documents, a person stood in the room and checked who was holding the pen. None of these is perfect. Together they give a court something to argue about that is concrete: this hand, this page, this room.
+      </p>
+
+      <p>
+        Notice also what the notary does not do. By the NNA's own description, the screening is of the signer, not of the document's contents. A notarised statement can be false. The notary vouches for who signed and that they appeared to mean it, not for what they signed.
+      </p>
+
+      <h3>What the mathematics does</h3>
+
+      <p>
+        A digital signature, in the cryptographic sense, works differently. The signer holds a pair of related numbers: a private key, kept secret, and a public key, shared with anyone. Signing runs the document through a function that reduces it to a short fingerprint, then combines that fingerprint with the private key to produce the signature. Anyone with the public key can check the result. If a single bit of the document has changed since signing, the check fails.
+      </p>
+
+      <p>
+        The U.S. standard for these algorithms, NIST's FIPS 186-5, published in 2023, says digital signatures "are used to detect unauthorized modifications to data and to authenticate the identity of the signatory," and that a recipient can use one "as evidence in demonstrating to a third party that the signature was, in fact, generated by the claimed signatory."
+      </p>
+
+      <p>
+        The first half of that sentence is a mathematical property and it is very strong. Within the limits of the algorithm, a valid signature means these exact bytes are the bytes that were signed. No handwriting expert can give you anything as crisp.
+      </p>
+
+      <p>
+        The second half carries a quiet assumption. The mathematics establishes that the signature was produced by whatever held a particular private key. It becomes a statement about a <em>person</em> only if something else has already bound that key to that person, and only if the key was still under that person's control when it was used. Those are not mathematical facts. They are facts about issuance, storage, and custody, and they have to be established separately.
+      </p>
+
+      <h3>The shorter list</h3>
+
+      <p>
+        So here is what a valid digital signature does not tell you on its own.
+      </p>
+
+      <p>
+        It does not tell you who held the key. A private key is data. It signs for whoever can use it: the owner, a colleague with the password, malware on the owner's laptop, or someone who obtained a copy. The signature looks identical in every case.
+      </p>
+
+      <p>
+        It does not tell you the signer meant it. Software can be asked to sign things in the background. A signature records that a key was used, not that a human decided anything.
+      </p>
+
+      <p>
+        It does not tell you what was displayed. The signature covers bytes. What the signer saw on screen was a rendering of those bytes by some program, and whether the rendering faithfully showed what was being signed is a question about that program, not about the signature.
+      </p>
+
+      <p>
+        And it does not tell you when. A date inside a signed document is just more signed content; it says whatever the signing software's clock said, or whatever someone typed. The standard way to do better is to have an independent time-stamping authority sign the fingerprint along with its own reading of the time. The internet standard for this, RFC 3161 (2001), requires such an authority "to use a trustworthy source of time." That moves the question rather than answering it. A timestamp is only as good as whoever's clock made it, and whether you trust them.
+      </p>
+
+      <p>
+        None of this is a flaw in the mathematics. It is the boundary of what the mathematics was ever asked to do.
+      </p>
+
+      <h3>What the law did with this</h3>
+
+      <p>
+        When legislatures turned to electronic signatures around the turn of the century, they made a choice that surprises many people: they mostly did not require cryptography at all.
+      </p>
+
+      <p>
+        In the United States, the Electronic Signatures in Global and National Commerce Act, known as ESIGN, became law on June 30, 2000. Its core rule is that, for transactions in or affecting interstate or foreign commerce, a signature, contract, or other record "may not be denied legal effect, validity, or enforceability solely because it is in electronic form." It defines an electronic signature as "an electronic sound, symbol, or process, attached to or logically associated with a contract or other record and executed or adopted by a person with the intent to sign the record."
+      </p>
+
+      <p>
+        Read that definition slowly. A typed name counts. A clicked box can count. What makes it a signature is not any technical property but "the intent to sign." The statute takes the hardest question, whether a human meant it, and leaves it where it always was: a question of fact, to be argued with evidence.
+      </p>
+
+      <p>
+        The states had already moved in parallel. The Uniform Electronic Transactions Act, recommended for adoption by the National Conference of Commissioners on Uniform State Laws in 1999, is referenced by ESIGN itself, which defers to state enactments of it. According to a January 2026 report by the New York City Bar, New York is the only state that has not adopted it; New York relies on its own Electronic Signatures and Records Act instead.
+      </p>
+
+      <p>
+        The European Union took a more graduated approach. Its eIDAS Regulation (No 910/2014), which repealed an earlier 1999 directive with effect from 1 July 2016, defines three tiers.
+      </p>
+
+      <p>
+        A plain <em>electronic signature</em> is "data in electronic form which is attached to or logically associated with other data in electronic form and which is used by the signatory to sign." Roughly, the same idea as ESIGN.
+      </p>
+
+      <p>
+        An <em>advanced electronic signature</em> must meet four requirements: it is "uniquely linked to the signatory," it is "capable of identifying the signatory," it is created using data "that the signatory can, with a high level of confidence, use under his sole control," and it is "linked to the data signed therewith in such a way that any subsequent change in the data is detectable."
+      </p>
+
+      <p>
+        A <em>qualified electronic signature</em> is an advanced one "created by a qualified electronic signature creation device" and "based on a qualified certificate for electronic signatures," which in practice means a certified device and an identity check by a regulated provider. The Regulation then says: "A qualified electronic signature shall have the equivalent legal effect of a handwritten signature." It also provides that no electronic signature may be denied legal effect or admissibility as evidence solely because it is electronic or falls short of the qualified tier.
+      </p>
+
+      <p>
+        The structure is instructive. Detecting changes to the data is the part cryptography does by itself. Linking the signature to a person and keeping it under that person's "sole control" are exactly the items on the shorter list above. The law did not pretend the mathematics covered them; it added requirements about identity checks, devices, and control, and reserved the strongest legal effect for where those were met.
+      </p>
+
+      <h3>What gets argued in court</h3>
+
+      <p>
+        With wet ink, a dispute is about the hand: the mark, specimens of known writing, people familiar with it, and the notary if there was one.
+      </p>
+
+      <p>
+        With a digital signature, the mathematics either verifies or it does not, so the dispute moves to everything around it. Who had access to the key? How was the signer's identity established when the key was issued? What did the signing system record, and what did the screen show? A well-run system can produce better evidence than a scrawl on paper. But it is different evidence, and a valid signature panel on a PDF is the start of that inquiry, not the end of it.
+      </p>
+
+      <h3>A signature on an atom</h3>
+
+      <p>
+        Now the second signature from the opening: the bolt through the container door.
+      </p>
+
+      <p>
+        A PDF signature has a luxury that is easy to overlook. The thing being signed and the thing being checked are the same bytes. The verifier can recompute the fingerprint from the document in hand and compare. There is no gap between the record and its subject.
+      </p>
+
+      <p>
+        A physical object offers no such luxury. You cannot compute a fingerprint of a container full of machine parts the way you can of a file. Any record about a physical thing is a description of it, and the description lives somewhere else: on paper, in a database, in a signed file. The weak point is the join between the record and the object. A perfectly signed record attached to the wrong box establishes nothing about the box.
+      </p>
+
+      <p>
+        Customs has been working on that join for a long time, with tools that are mostly physical and procedural.
+      </p>
+
+      <p>
+        The container seal is the clearest example. U.S. Customs and Border Protection's supply-chain security program, CTPAT, requires member shipments that can be sealed to be secured immediately after loading "with a high-security seal that meets or exceeds the most current International Organization for Standardization (ISO) 17712 standard for high-security seals." That standard sorts mechanical seals into classes, commonly summarised as I (indicative), S (security), and H (high security), and its 2013 edition added requirements on evidence of tampering and on the security practices of seal manufacturers themselves.
+      </p>
+
+      <p>
+        A seal is not a lock in any serious sense; a determined person with tools can cut it. Its job is to be tamper-evident: to make an opening visible afterward. And what makes it useful is the number. CBP's criteria require a check known as VVTT: "View seal and container locking mechanisms," "Verify seal number against shipment documents for accuracy," "Tug on seal to make sure it is affixed properly," and "Twist and turn the bolt seal to make sure its components do not unscrew." The same criteria recommend printing seal numbers electronically on the bill of lading, because doing so "helps guard against changing the seal and altering the pertinent document(s) to match the new seal number."
+      </p>
+
+      <p>
+        Look at what that last sentence describes. The attack is not on the seal or on the paperwork alone. It is on the link between them: replace the physical object, then edit the record to agree. The defence is to make the record harder to edit, so that the number on the paper and the number on the door have to keep matching. That is the atom-side version of the problem a digital signature solves for bytes, and it is solved here with stamped steel, printed numbers, and people trained to read them.
+      </p>
+
+      <p>
+        The same pattern shows up wherever documents vouch for goods. The ATA carnet, created under a customs convention adopted in 1961 and later folded into the 1990 Istanbul Convention on temporary admission, lets goods such as trade-show exhibits or professional equipment cross borders under "a single document" secured by an international guarantee. The paper stands in for the goods, and its value depends on the goods presented being the goods described.
+      </p>
+
+      <p>
+        A certificate of origin is a sharper case still. Issued by chambers of commerce, these documents state where exported goods were made, and customs officials use them to decide which tariffs and trade measures apply. Origin is a fact about an object's history that usually cannot be read off the object itself. A certificate is a signed claim standing in for something no inspector can see, which is why the International Chamber of Commerce runs accreditation for issuing chambers and a verification platform for checking certificates.
+      </p>
+
+      <h3>Why the difference matters</h3>
+
+      <p>
+        Put the two worlds side by side and they turn out to be mirror images.
+      </p>
+
+      <p>
+        On paper, the binding between signature and document is nearly free: the ink is in the page. What is expensive is checking the mark, which takes handwriting comparison, witnesses who know the hand, or a notary who was there.
+      </p>
+
+      <p>
+        In software, checking is nearly free: verification is a calculation anyone can run. What is expensive is binding: tying the key to a person, keeping it under their control, and showing that they meant what was signed.
+      </p>
+
+      <p>
+        For physical objects, both are expensive. The record has to be tied to the specific object, and the object has to be shown not to have changed since. The tools are numbers, seals, inspections, chains of documents, and institutions that vouch for each other. A digital signature can make the paperwork in that chain much harder to alter. On its own it says nothing about whether the paperwork still describes the thing on the dock.
+      </p>
+
+      <p>
+        That is why the distinction matters in court and at the border. A court relying on a digital signature should ask about the key's custody, not just the panel that says "valid." A customs officer relying on a signed record should ask what joins the record to the goods. In both places the signature narrows the question; it does not close it.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>A note on our interests.</strong> ZKNOT, Inc., which funds this educational project, builds hardware in this area, and so has an interest in how this distinction is understood.</p>
+        <p><strong>Corrections.</strong> If you find an error in this essay we would like to know. Write to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
