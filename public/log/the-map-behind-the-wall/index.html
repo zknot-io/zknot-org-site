@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The map behind the wall &mdash; ZKNOT Log</title>
+  <meta name="description" content="Which federal registration needs which other one first, for a small company going after SBIR or STTR money. Drawn after walking into most of it.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+.mp{--display:var(--serif-display);--body:var(--serif-body);font-size:18px;line-height:1.6;padding:24px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px))}
+.mp .wrap{max-width:74rem;margin:0 auto;display:grid;gap:30px}
+.mp .col{max-width:38rem;min-width:0;width:100%;margin:0 auto;display:grid;gap:16px}
+.mp .kicker,.mp .meta{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted)}
+.mp h1{font-family:var(--display);font-weight:400;font-size:clamp(38px,6vw,62px);line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+.mp .dek{font-family:var(--display);font-style:italic;font-size:22px;line-height:1.35;color:var(--ink-soft);text-wrap:pretty}
+.mp h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.15;text-wrap:balance;margin-top:14px}
+.mp a{color:var(--accent)}.mp a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mp .legend{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:15px;color:var(--ink-soft);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding-block:12px;align-items:center}
+.mp .legend span{display:flex;gap:9px;align-items:center}.mp .legend svg{flex:none}
+.mp .mapbox{overflow-x:auto;border-bottom:1px solid var(--rule);padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.mp .map{display:block;width:100%;min-width:1000px;height:auto}
+.mp .map rect{stroke:var(--ink);stroke-width:1.2;fill:var(--paper)}
+.mp .nt{font-family:var(--display);font-size:18px;font-weight:600;fill:var(--ink)}
+.mp .nl{font-family:var(--body);font-size:14px;fill:var(--ink-soft)}
+.mp .band{font-family:var(--mono);font-size:11px;letter-spacing:.08em;fill:var(--ink-muted)}
+.mp .n-prog rect{fill:var(--ink);stroke:var(--ink)}.mp .n-prog .nt{fill:var(--paper)}.mp .n-prog .nl{fill:var(--paper-warm)}
+.mp .n-read rect{stroke-dasharray:7 6;stroke:var(--ink-muted)}
+.mp .n-next rect{fill:var(--highlight);stroke-dasharray:2 5;stroke-width:1.8;stroke-linecap:round}
+.mp .tag rect{fill:var(--accent);stroke:var(--accent)}.mp .tag text{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;fill:var(--paper)}
+.mp .wl{font-family:var(--display);font-style:italic;font-size:15px;fill:var(--accent)}
+.mp .hint{font-size:14px;color:var(--ink-muted)}@media(min-width:1040px){.hint{display:none}}
+.mp ol.steps{list-style:none;display:grid;gap:14px;counter-reset:s}
+.mp ol.steps li{counter-increment:s;display:grid;grid-template-columns:2.2rem minmax(0,1fr);gap:4px}
+.mp ol.steps li::before{content:counter(s);font-family:var(--display);font-size:24px;line-height:1.2;color:var(--accent)}
+.mp .how{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-muted);white-space:nowrap}
+.mp .tw{overflow-x:auto;min-width:0}
+.mp table{border-collapse:collapse;width:100%;min-width:34rem;font-size:15px;line-height:1.35}
+.mp th,.mp td{padding:8px 10px 8px 0;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.mp thead th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--ink-muted);border-bottom:1.5px solid var(--ink)}
+.mp td.m{text-align:center;font-size:17px}.mp thead th.m{text-align:center}
+.mp .src{font-size:15px;line-height:1.45;color:var(--ink-soft);display:grid;gap:9px}
+.mp .foot{border-top:1px solid var(--rule);padding-top:14px;font-size:15px;color:var(--ink-soft);display:grid;gap:10px}
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>The Workshop &middot; Field guide</span>
+    <span>Thursday 5 November 2026</span>
+  </div>
+
+<main class="mp">
+<div class="wrap">
+<div class="col">
+  <div class="kicker">Field guide &middot; As of 4 November 2026</div>
+  <h1>The map behind the wall</h1>
+  <p class="dek">Which federal registration needs which other one first, for a small company going after SBIR or STTR money. Drawn after walking into most of it.</p>
+  <div class="meta">By William Shane Wilkinson &middot; Salt Lake City</div>
+  <p>In <a href="/log/the-wall/">The wall</a> I wrote about touching thirteen government websites in two weeks. A commenter on LinkedIn named the actual problem: the cost is the sequence, and nobody publishes it. You find each dependency by hitting it.</p>
+  <p>So here is the sequence as I found it. It comes from one small company, one EPA proposal and one Air Force proposal still in progress. Some of this I walked, some I only read, and a few steps I haven’t reached yet. The map shows which is which, because you should trust those differently.</p>
+</div>
+
+<div class="legend" aria-label="Map legend">
+  <span><svg width="46" height="10" aria-hidden="true"><path d="M0 5H44" style="stroke:var(--ink);stroke-width:1.8"/></svg>I walked it</span>
+  <span><svg width="46" height="10" aria-hidden="true"><path d="M0 5H44" style="stroke:var(--ink-muted);stroke-width:1.6;stroke-dasharray:7 6"/></svg>Official source says so; I didn’t hit it</span>
+  <span><svg width="46" height="10" aria-hidden="true"><path d="M0 5H44" style="stroke:var(--ink);stroke-width:1.8;stroke-dasharray:2 5;stroke-linecap:round"/></svg>Told or documented; I haven’t reached it yet</span>
+  <span><svg width="46" height="10" aria-hidden="true"><path d="M0 5H44" style="stroke:var(--accent);stroke-width:3.6"/></svg>A dependency I found only by being refused</span>
+</div>
+
+<div class="mapbox" tabindex="0" aria-label="Dependency map, scrolls sideways on small screens">
+<svg class="map" viewBox="0 0 1240 1190" role="img" aria-labelledby="mapt mapd" xmlns="http://www.w3.org/2000/svg"><title id="mapt">Dependency map of federal registrations</title><desc id="mapd">Foundations at the bottom lead to SAM.gov, which leads to the program portals at the top. The Department of Defense route runs through PIEE, SPRS and the JCP portal before DD Form 2345. The full order is written out as a list below the map.</desc>
+<defs>
+<marker id="a-walk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>
+<marker id="a-read" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink-muted)"/></marker>
+<marker id="a-next" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>
+<marker id="a-wall" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker>
+</defs>
+<text class="band" x="30" y="18">WHAT YOU’RE TRYING TO DO</text>
+<text class="band" x="30" y="834">THE ROOT</text>
+<text class="band" x="30" y="1022">BEFORE ANYTHING ELSE</text>
+<path d="M145.0 850 V304" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M145.0 200 V144" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M450.0 850 V784" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M450.0 680 V304" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M450.0 200 V144" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M335 710 H298 V92.0 H260" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M755.0 850 V784" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M755.0 680 V624" fill="none" style="stroke:var(--ink);stroke-width:1.8;stroke-dasharray:2 5;stroke-linecap:round" marker-end="url(#a-next)"/>
+<path d="M755.0 520 V464" fill="none" style="stroke:var(--accent);stroke-width:3.6" marker-end="url(#a-wall)"/>
+<path d="M755.0 360 V304" fill="none" style="stroke:var(--ink);stroke-width:1.8;stroke-dasharray:2 5;stroke-linecap:round" marker-end="url(#a-next)"/>
+<path d="M640 252.0 H605 V166 H510.0 V144" fill="none" style="stroke:var(--ink);stroke-width:1.8;stroke-dasharray:2 5;stroke-linecap:round" marker-end="url(#a-next)"/>
+<path d="M565 92.0 H640" fill="none" style="stroke:var(--ink-muted);stroke-width:1.6;stroke-dasharray:7 6" marker-end="url(#a-read)"/>
+<path d="M602 850 V412.0 H640" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M945 572.0 H870" fill="none" style="stroke:var(--ink-muted);stroke-width:1.6;stroke-dasharray:7 6" marker-end="url(#a-read)"/>
+<path d="M945 412.0 H870" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M1195 850 V252.0 H1175" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M1060.0 200 V144" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M195.0 1040 V950" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M540.0 1040 V950" fill="none" style="stroke:var(--ink);stroke-width:1.8" marker-end="url(#a-walk)"/>
+<path d="M960.0 1040 V950" fill="none" style="stroke:var(--ink-muted);stroke-width:1.6;stroke-dasharray:7 6" marker-end="url(#a-read)"/>
+<g class="n-prog"><rect x="30" y="40" width="230" height="104"/>
+<text class="nt" x="42" y="65">Civilian proposal</text>
+<text class="nl" x="42" y="87">SBIR at EPA, in my case.</text>
+<text class="nl" x="42" y="105">One PDF, one portal.</text>
+</g>
+<g class="n-prog"><rect x="335" y="40" width="230" height="104"/>
+<text class="nt" x="347" y="65">DoD proposal</text>
+<text class="nl" x="347" y="87">STTR at the Air Force, in my</text>
+<text class="nl" x="347" y="105">case. Still being built.</text>
+</g>
+<g class="n-prog"><rect x="640" y="40" width="230" height="104"/>
+<text class="nt" x="652" y="65">State match programs</text>
+<text class="nl" x="652" y="87">Utah has one (UTIF). It asks</text>
+<text class="nl" x="652" y="105">for your federal submission.</text>
+</g>
+<g class="n-prog"><rect x="945" y="40" width="230" height="104"/>
+<text class="nt" x="957" y="65">SDVOSB set-asides</text>
+<text class="nl" x="957" y="87">Set-aside and sole-source</text>
+<text class="nl" x="957" y="105">federal contracts.</text>
+</g>
+<g class="n-walk"><rect x="30" y="200" width="230" height="104"/>
+<text class="nt" x="42" y="225">FedConnect</text>
+<text class="nl" x="42" y="247">EPA’s submission portal. Email</text>
+<text class="nl" x="42" y="265">must match a SAM contact.</text>
+</g>
+<g class="n-walk"><rect x="335" y="200" width="230" height="104"/>
+<text class="nt" x="347" y="225">DSIP</text>
+<text class="nl" x="347" y="247">The only way to file a DoD</text>
+<text class="nl" x="347" y="265">SBIR/STTR proposal.</text>
+</g>
+<g class="n-next"><rect x="640" y="200" width="230" height="104"/>
+<text class="nt" x="652" y="225">DD Form 2345</text>
+<text class="nl" x="652" y="247">Export-control certification.</text>
+<text class="nl" x="652" y="265">My topic asked for it or proof</text>
+<text class="nl" x="652" y="283">of applying. Check yours.</text>
+</g>
+<g class="n-walk"><rect x="945" y="200" width="230" height="104"/>
+<text class="nt" x="957" y="225">SBA VetCert</text>
+<text class="nl" x="957" y="247">Veteran status for set-asides.</text>
+<text class="nl" x="957" y="265">No effect on SBIR/STTR</text>
+<text class="nl" x="957" y="283">eligibility. Three-year term.</text>
+</g>
+<g class="n-next"><rect x="640" y="360" width="230" height="104"/>
+<text class="nt" x="652" y="385">DLA JCP portal</text>
+<text class="nl" x="652" y="407">Portal only: emailed forms are</text>
+<text class="nl" x="652" y="425">refused. Application needs the</text>
+<text class="nl" x="652" y="443">score on file first.</text>
+<g class="tag"><rect x="738" y="349" width="140" height="22"/><text x="808" y="364" text-anchor="middle">NEEDS A PERSON</text></g>
+</g>
+<g class="n-walk"><rect x="945" y="360" width="230" height="104"/>
+<text class="nt" x="957" y="385">Export-control training</text>
+<text class="nl" x="957" y="407">Signed certificate that goes</text>
+<text class="nl" x="957" y="425">into the JCP application.</text>
+</g>
+<g class="n-next"><rect x="640" y="520" width="230" height="104"/>
+<text class="nt" x="652" y="545">SPRS score posted</text>
+<text class="nl" x="652" y="567">NIST SP 800-171 Basic self-</text>
+<text class="nl" x="652" y="585">assessment. Post the true</text>
+<text class="nl" x="652" y="603">number, even if it’s low.</text>
+</g>
+<g class="n-read"><rect x="945" y="520" width="230" height="104"/>
+<text class="nt" x="957" y="545">NIST self-assessment</text>
+<text class="nl" x="957" y="567">Plan and assessment, outside</text>
+<text class="nl" x="957" y="585">any portal. With no plan, the</text>
+<text class="nl" x="957" y="603">DoD method allows no score.</text>
+</g>
+<g class="n-next"><rect x="640" y="680" width="230" height="104"/>
+<text class="nt" x="652" y="705">PIEE account and roles</text>
+<text class="nl" x="652" y="727">Gateway to SPRS. Needs an</text>
+<text class="nl" x="652" y="745">administrator and a group for</text>
+<text class="nl" x="652" y="763">your CAGE code.</text>
+<g class="tag"><rect x="738" y="669" width="140" height="22"/><text x="808" y="684" text-anchor="middle">NEEDS A PERSON</text></g>
+</g>
+<g class="n-walk"><rect x="335" y="680" width="230" height="104"/>
+<text class="nt" x="347" y="705">SBIR.gov firm registry</text>
+<text class="nl" x="347" y="727">SBA’s record of you. Issues the</text>
+<text class="nl" x="347" y="745">SBC Control ID every SBIR/</text>
+<text class="nl" x="347" y="763">STTR agency asks for.</text>
+</g>
+<g class="n-walk"><rect x="30" y="850" width="1180" height="100"/>
+<text class="nt" x="42" y="875">SAM.gov entity registration</text>
+<text class="nl" x="42" y="902">The root of nearly everything: issues your UEI, and your CAGE code if you have none. Renew every 365 days, or the record goes inactive.</text><text class="nl" x="42" y="924">Several portals above need this record active, so put the renewal date on a calendar.</text>
+</g>
+<g class="n-walk"><rect x="30" y="1040" width="330" height="104"/>
+<text class="nt" x="42" y="1065">A legal company</text>
+<text class="nl" x="42" y="1087">Your legal name and physical</text>
+<text class="nl" x="42" y="1105">address go into SAM.gov.</text>
+</g>
+<g class="n-walk"><rect x="405" y="1040" width="270" height="104"/>
+<text class="nt" x="417" y="1065">IRS EIN</text>
+<text class="nl" x="417" y="1087">Validated by SAM.gov.</text>
+<text class="nl" x="417" y="1105">Get it before you start there.</text>
+</g>
+<g class="n-read"><rect x="710" y="1040" width="500" height="104"/>
+<text class="nt" x="722" y="1065">Login.gov</text>
+<text class="nl" x="722" y="1087">Your sign-in for SAM.gov, SBIR.gov and DSIP.</text>
+<text class="nl" x="722" y="1105">Create it first, on a company email address.</text>
+</g>
+<text class="wl" x="741.0" y="497.0" text-anchor="end">the one that surprised me</text>
+</svg>
+</div>
+<p class="hint">Swipe to see the whole map. The same order is written out below.</p>
+
+<div class="col">
+  <h2>The same order, as a list</h2>
+  <ol class="steps">
+    <li><div><strong>Have the company, the EIN and a Login.gov account.</strong> SAM.gov validates your taxpayer number, and SAM.gov, SBIR.gov and DSIP all sign in through Login.gov. <span class="how">WALKED</span></div></li>
+    <li><div><strong>Register in SAM.gov, fully.</strong> You can get a UEI with just a name and address, but a full registration asks for far more, including your bank routing number. If you have no CAGE code, one gets assigned here. Everything below waits on this, so start it well ahead of any deadline. <span class="how">WALKED</span></div></li>
+    <li><div><strong>Register in the SBIR.gov firm registry.</strong> It needs your UEI and gives you an SBC Control ID. Agencies ask for that ID on proposals. <span class="how">WALKED</span></div></li>
+    <li><div><strong>Open the portal for your agency.</strong> FedConnect needs an active SAM record, your UEI and an email that matches a SAM point of contact. DSIP is the only way to file a DoD proposal. Other agencies use other portals, so read your solicitation first. <span class="how">WALKED</span></div></li>
+    <li><div><strong>If it’s civilian, you may be done.</strong> My EPA proposal needed nothing further on this map. One PDF, one portal, receipt in a minute. <span class="how">WALKED</span></div></li>
+    <li><div><strong>If it’s DoD, check whether you need a DD Form 2345.</strong> That’s the certification for receiving export-controlled military technical data. My topic asked for it or evidence of applying. If yours does, start here at least several weeks out, because the next steps depend on each other and on other people. <span class="how">WALKED</span></div></li>
+    <li><div><strong>Write your security plan and do the NIST SP 800-171 self-assessment.</strong> This happens outside any portal, and it’s real work. The DoD scoring method allows no score without a plan. <span class="how">READ</span></div></li>
+    <li><div><strong>Get into PIEE.</strong> It’s the gateway to SPRS. It needs an account administrator for your CAGE code (PIEE calls this the CAM), who approves your SPRS Cyber Vendor User role. My CAGE code had no group in the system, and the fix was an email to a help desk. <span class="how">PARTLY WALKED</span></div></li>
+    <li><div><strong>Post the score in SPRS.</strong> SPRS only stores the result, along with dates and the date your remaining gaps close. <span class="how">NOT REACHED</span></div></li>
+    <li><div><strong>Now apply through the JCP portal.</strong> Emailed and mailed forms are no longer accepted, even though the form still gives an address. JCP told me in writing to post the NIST assessment before starting the application. I didn’t find that order on any public page I could read. <span class="how">REFUSED, THEN TOLD</span></div></li>
+  </ol>
+
+  <h2>Who needs what</h2>
+  <p>&#9679; needed. &#9675; depends on the solicitation or contract. This is what I saw, so check your own solicitation.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Item</th><th class="m">Civilian SBIR</th><th class="m">DoD SBIR/STTR</th><th class="m">After a DoD award</th><th class="m">SDVOSB set-aside</th></tr></thead>
+    <tbody>
+      <tr><td>EIN, SAM.gov, Login.gov</td><td class="m">&#9679;</td><td class="m">&#9679;</td><td class="m">&#9679;</td><td class="m">&#9679;</td></tr>
+      <tr><td>SBIR.gov firm registry</td><td class="m">&#9679;</td><td class="m">&#9679;</td><td class="m"></td><td class="m"></td></tr>
+      <tr><td>FedConnect</td><td class="m">&#9675;</td><td class="m"></td><td class="m"></td><td class="m"></td></tr>
+      <tr><td>DSIP</td><td class="m"></td><td class="m">&#9679;</td><td class="m"></td><td class="m"></td></tr>
+      <tr><td>DD Form 2345 (JCP)</td><td class="m"></td><td class="m">&#9675;</td><td class="m">&#9675;</td><td class="m">&#9675;</td></tr>
+      <tr><td>PIEE, SPRS, security plan</td><td class="m"></td><td class="m">&#9675;</td><td class="m">&#9679;</td><td class="m">&#9675;</td></tr>
+      <tr><td>SBA VetCert</td><td class="m"></td><td class="m"></td><td class="m"></td><td class="m">&#9679;</td></tr>
+      <tr><td>CMMC status</td><td class="m"></td><td class="m"></td><td class="m">&#9675;</td><td class="m">&#9675;</td></tr>
+      <tr><td>WAWF invoicing, incident reporting, DoD SAFE</td><td class="m"></td><td class="m"></td><td class="m">&#9675;</td><td class="m"></td></tr>
+    </tbody>
+  </table></div>
+  <p>Three foundations were common to everything I touched: the EIN, SAM.gov and Login.gov. SBIR money adds the firm registry. DoD work adds about four more.</p>
+
+  <h2>What runs out</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Item</th><th>How long it lasts</th><th>How sure I am</th></tr></thead>
+    <tbody>
+      <tr><td>SAM.gov</td><td>Renew every 365 days, or it goes inactive. Your UEI itself doesn’t expire.</td><td>Official</td></tr>
+      <tr><td>SPRS Basic assessment</td><td>Not more than 3 years old, unless the solicitation says less.</td><td>Regulation text. One vendor reports the clause was renumbered in 2026, so go by your solicitation.</td></tr>
+      <tr><td>SBA VetCert</td><td>Three years.</td><td>Official factsheet</td></tr>
+      <tr><td>DD Form 2345</td><td>Five years.</td><td>Secondary source only. Confirm with JCP.</td></tr>
+      <tr><td>Proof of business for JCP</td><td>JCP accepted proof dated within 365 days.</td><td>What I was told</td></tr>
+      <tr><td>SBIR.gov registry</td><td>I re-certified once. I couldn’t find a stated interval.</td><td>Unknown</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>What changed this year</h2>
+  <p>Older guides will tell you third-party CMMC assessments start being required on 10 November 2026. The Department of War suspended that phase in July, and a contracting memo dated 3 September told contracting officers to take third-party assessment requirements out of contracts. As reported, self-attestation against NIST standards is still required. A 60-day review was due in September, and I didn’t find a published result. Check the current position before you plan around any of this, and read your own solicitation.</p>
+  <p>Self-assessing doesn’t mean going easy on yourself. The same report describes a roughly $500,000 Justice Department settlement with a company whose near-perfect self-assessment score didn’t survive a DoD audit.</p>
+
+  <h2>What I’d do differently</h2>
+  <p>Put SAM.gov’s renewal date on a calendar the day you register. Start the DoD security work before you pick a topic, because it sits underneath the export-control form and it’s the longest job here. Use a company email address on every account from the start, since accounts opened on a personal address keep sending their mail there. And when a government form tells you where to send it, assume that may be out of date and check the portal first.</p>
+
+  <h2>How this was checked</h2>
+  <div class="src">
+    <p>Everything was checked on 4 November 2026. <strong>Read directly:</strong> <a href="https://sam.gov/entity-registration">SAM.gov entity registration</a> and its <a href="https://sam.gov/sites/default/files/2024-11/entity-checklist.pdf">checklist</a>; the <a href="https://www.sprs.csd.disa.mil/nistsp.htm">SPRS NIST page</a> and <a href="https://www.sprs.csd.disa.mil/pdf/NISTSP800-171QuickEntryGuide.pdf">quick entry guide</a>; <a href="https://fcsupport.unisonglobal.com/support/solutions/articles/42000047307">FedConnect registration</a>; <a href="https://www.washingtontechnology.com/contracts/2026/09/cmmcs-phase-2-suspension-locked-binding-regulation/415883/">Washington Technology on the 3 September memo</a>.</p>
+    <p><strong>Read only as search excerpts, because the sites block automated reading:</strong> <a href="https://www.dla.mil/HQ/LogisticsOperations/Services/JCP/FAQ.aspx">DLA JCP FAQ</a> and <a href="https://www.dla.mil/Working-With-DLA/Applications/Details/Article/4563589/joint-certification-program-portal/">JCP portal page</a>; <a href="https://www.war.gov/News/Releases/Release/Article/4542329/forging-the-arsenal-of-freedom-department-of-war-suspends-cmmc-phase-ii-require/">Department of War release</a>; <a href="https://www.defensesbirsttr.mil/SBIR-STTR">DoD SBIR/STTR program page</a>; the <a href="https://omb.report/icr/202610-3245-001/doc/173864300.pdf">SBIR.gov registry form</a>; SBA’s VetCert factsheet (no working link at the time); <a href="https://www.law.cornell.edu/cfr/text/48/252.204-7019">DFARS 252.204-7019</a>.</p>
+    <p><strong>From my own records:</strong> JCP’s two written replies of 4 November, the portal’s pre-screen, and the PIEE group request. The refused email is on the public record as <a href="https://verifyknot.io">ZK-LL6P-TTV</a>.</p>
+  </div>
+  <div class="foot">
+    <p>This is one company’s experience and not legal or compliance advice. Portals and rules change, sometimes in a week. If I have something wrong or missing, write to editors@zknot.org and I’ll fix the map and say what changed. PIEE and SPRS get updated once I’ve actually been through them.</p>
+    <p>This is part of the founder’s log, and it’s not part of the essay series or its claim of editorial independence.</p>
+  </div>
+</div>
+</div>
+</main>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
