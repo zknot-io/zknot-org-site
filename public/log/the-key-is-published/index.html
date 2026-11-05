@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The key is published &mdash; ZKNOT Log</title>
+  <meta name="description" content="Last week ended with &quot;that&#x27;s next.&quot; This week it&#x27;s done, along with one secret I didn&#x27;t name last week. And I found two places still vouching for the old key.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>The Workshop &middot; Fab log</span>
+    <span>Wednesday 4 November 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Fab log &middot; Wednesday 4 November 2026</div>
+      <h1>The key is published</h1>
+      <p class="dek">
+        Last week ended with "that's next." This week it's done, along with one secret I didn't name last week. And I found two places still vouching for the old key.
+      </p>
+      <p class="essay-byline">By William Shane Wilkinson &middot; Salt Lake City &middot; Approx. 4 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        Last week's log ended on an open item: our new public key wasn't published yet, so checking one of our new records meant taking our own server's word for which key is ours. I said that was next. It's done. The key is on our protocol page, next to the keys it replaced.
+      </p>
+
+      <p>
+        This is the third log in a row about one breach at our hosting provider. I'm writing it anyway, because a promise in public is only worth something if the follow-up is in public too.
+      </p>
+
+      <h3>The secret I didn't name</h3>
+
+      <p>
+        Last week I wrote that "a few steps are left" and didn't say which. One of them was the password to our database. It was stored with the host, so by the host's own advice it had to be treated as stolen, and the database can be reached from the internet. Saying in public that it hadn't been changed yet would have told anyone holding it that it still worked.
+      </p>
+
+      <p>
+        It's changed now. Its connection details are written into several places, so I didn't trust any of them to follow on their own. I changed them first and checked that every one had picked up the new password before the database itself changed. Then the new password connected, the old one was refused, and the service restarted on the new one. For a few minutes the service couldn't open new connections, which was planned. Afterward a record from July still verified, a made-up code was refused, and nothing in the chain moved.
+      </p>
+
+      <h3>Two places still vouching for the old key</h3>
+
+      <p>
+        Publishing the key is where this week's real lesson came from.
+      </p>
+
+      <p>
+        Our protocol page has a section that lists the keys we sign with, so anyone can check a record against them instead of trusting us. When I went to add the new key, that page still described the old one as the key that "signs registry-asserted records today." It had said that for eleven days after the old key was retired. The page whose whole job is to tell you which key to trust was wrong about which key to trust.
+      </p>
+
+      <p>
+        The second was our own shipping check for TamperVerify seals. Before a box closes, it checks that every seal in it was signed by the current key. It still had the old key written in as current. That one failed safe: it would have refused every new seal rather than passing a bad one. But it meant we couldn't have shipped a newly registered seal until someone noticed.
+      </p>
+
+      <p>
+        Neither was dangerous. Both are the same mistake: replacing a key changes the place that uses it, not the places that describe it. When I wrote the rotation plan I listed what reads the key. I didn't list what tells other people about it.
+      </p>
+
+      <h3>What changed</h3>
+
+      <p>
+        The protocol page now lists the new key as current. The old one is listed as retired, with what happened and where its limit sits: records it signed before stay valid, and nothing new can be signed with it. The August key is still there too. Retired keys don't come off the list, because the records they signed still need checking.
+      </p>
+
+      <h3>What's left</h3>
+
+      <p>
+        The rail hasn't yet recorded anything signed by the new key. When it does, I'll check that record against the published key myself. A couple of account cleanups on the host's side are also still open.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>What this is.</strong> A weekly log from the bench at ZKNOT, Inc., written by its founder. It is not part of the essay series and does not claim that series' editorial independence. Corrections to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
