@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Hardware Transparency Is Hard &mdash; ZKNOT</title>
+  <meta name="description" content="Open source software is one thing. Open source silicon, and verifying it, is a much stranger problem.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="wordmark"><a href="/">ZKNOT</a></div>
+      <div class="tagline">An educational project on physical trust</div>
+    </div>
+    <nav>
+      <a href="/journey/">Journey</a>
+      <a href="/essays/">Essays</a>
+      <a href="/log/">Log</a>
+      <a href="/#topics">Topics</a>
+      <a href="/about/">About</a>
+    </nav>
+  </header>
+
+  <div class="sub-rule">
+    <span>Vol. I &middot; Essay &#8470; 009</span>
+    <span>Published 2026</span>
+  </div>
+
+  <article class="essay">
+
+    <header class="essay-header">
+      <div class="essay-num">Essay &#8470; 009 &middot; Open Silicon</div>
+      <h1>Why Hardware Transparency Is Hard</h1>
+      <p class="dek">
+        Open source software is one thing. Open source silicon, and verifying it, is a much stranger problem.
+      </p>
+      <p class="essay-byline">By the Editors &middot; Salt Lake City &middot; Approx. 30 minutes</p>
+    </header>
+
+    <div class="essay-body">
+
+      <p>
+        In May 2016, five researchers from the University of Michigan stood up at the IEEE Symposium on Security and Privacy with a processor they had deliberately had built wrong. The design they started from was the OR1200, an open source processor. Anyone could read its source. They laid it out in a 65 nm process and then, in the gaps left over after the layout was finished, added a small analog circuit that appeared nowhere in that source.
+      </p>
+
+      <p>
+        The circuit is a capacitor with some switching around it. Each time a chosen wire on the chip changes state, the capacitor sips a little charge from it. Ordinary software rarely toggles that wire fast enough for the charge to build up, because the capacitor leaks. A program written for the purpose can toggle it fast enough, and when the capacitor fills, the circuit forces one flip-flop to a chosen value. The flip-flop they chose holds the privilege bit, the single stored value that decides whether the processor is running in user mode or supervisor mode. An ordinary program, with no help from the operating system, can run a certain instruction sequence and promote itself.
+      </p>
+
+      <p>
+        The authors called it A2 and described the result as "the first openly malicious processor." They reported that the attack could take as little as one gate's worth of area. A digital version built to do the same job took 91 cells and 382 square micrometres. They wrote that if a defender were to delayer the chip and image it with an electron microscope, "our malicious gate is almost identical to all the other gates in a design." And they noted that "a public specification of the chip to be fabricated makes this process easier."
+      </p>
+
+      <p>
+        So here is the question this essay carries. When software is open, you can in principle read it, build it, and compare what you built with what you were given. The source of the OR1200 was open and the source was innocent. Why can't the same reasoning tell you that a chip in your hand is the chip its source describes?
+      </p>
+
+      <h3>What the software argument actually relies on</h3>
+
+      <p>
+        The argument for trusting open software has a famous objection, framed in part as a warning about hardware.
+      </p>
+
+      <p>
+        In his 1984 Turing Award lecture, printed that August in <em>Communications of the ACM</em>, Ken Thompson described a compiler he had modified so that it would miscompile the UNIX login command and accept a known password. He then modified it a second time so that it would reinsert both changes whenever it compiled itself. After that the changes could be removed from the compiler's source, and, in his words, the login command "will remain bugged with no trace in source anywhere." His moral was blunt: "You can't trust code that you did not totally create yourself." And: "No amount of source-level verification or scrutiny will protect you from using untrusted code."
+      </p>
+
+      <p>
+        The passage people quote less often comes just after. Thompson said he could have picked on an assembler, a loader, "or even hardware microcode," and added: "As the level of program gets lower, these bugs will be harder and harder to detect. A well-installed microcode bug will be almost impossible to detect."
+      </p>
+
+      <p>
+        Software has since built real answers to the compiler half of this. The Reproducible Builds project defines the goal this way: "A build is reproducible if given the same source code, build environment and build instructions, any party can recreate bit-by-bit identical copies of all specified artifacts." If strangers using different machines all get the same bits from the same source, then a backdoor that exists only in one builder's machine shows up as a difference. David Wheeler's Diverse Double-Compiling goes after Thompson's attack directly: compile the compiler's source with a second, independent compiler, use the result to compile the source again, and compare against the executable you are testing. If the output matches bit for bit, then under stated assumptions the executable corresponds to its source. The second compiler need not be trustworthy, only differently flawed.
+      </p>
+
+      <p>
+        Look at what these methods need. They need the object to be a string of bits, so that it can be copied without loss. They need the build to be something a stranger can repeat cheaply. They need comparison to be exact and to leave the object unharmed. Andrew "bunnie" Huang, a hardware designer who has written more plainly about this than almost anyone, gave the combined effect a good name in 2019: "the near-perfect transfer of trust." An expert audits a program, and a hash, a short fingerprint of a file that changes completely if a single bit of the file changes, lets that audit carry over to your own copy "with mathematical precision." Because a hash is cheap to compute, you can check the program immediately before you run it, which closes what engineers call the time-of-check to time-of-use gap.
+      </p>
+
+      <p>
+        A chip fails all three needs. You cannot copy a chip to look at the copy. You cannot rebuild one at home. And the exact comparison has no equivalent. Huang's formulation is the clearest available: there is "no 'hardware hash function'" that links what a developer intended to the exact instance of hardware a user holds. Even with the entire manufacturing data published, he argued, "this 'source code' is meaningless without a practical method to verify an equivalence between the mask set and the chip in your possession down to a near-atomic level without simultaneously destroying the CPU."
+      </p>
+
+      <p>
+        There is one further wrinkle. Every hash you ever check is computed by hardware, which is the thing in question. As Huang notes, "a malicious piece of hardware could forge the results of a hash computation." The software method rests on the very layer it cannot reach.
+      </p>
+
+      <h3>What "open" means in open silicon</h3>
+
+      <p>
+        The most widely known example is RISC-V, which is open at the level of the instruction set: the list of instructions a processor promises to obey. The official manual describes the goal as "a completely open ISA that is freely available to academia and industry," and defines the ISA as "the software-visible interface to a wide variety of implementations rather than as the design of a particular hardware artifact." An open instruction set tells you what the chip should do. It tells you nothing about how any particular chip does it. A RISC-V core may be open or proprietary, and many commercial ones are licensed.
+      </p>
+
+      <p>
+        The next level is the implementation, written in a register-transfer language, or RTL. RTL is text, roughly like a program, describing registers and the logic between them. The OR1200 is open at this level, and so is OpenTitan, the most serious attempt so far to make an open security chip. OpenTitan was announced in November 2019 as a transparent silicon root of trust. Its first top-level design, Earl Grey, reached RTL freeze in June 2023. The project's own history gives its tape-out, the point where a finished design goes to manufacture, as November 2023, and describes February 2024 as the moment it became the first open-source silicon project to reach commercial availability with validated chips. Nuvoton began fabricating production silicon from the design in February 2025. The design is released under the Apache 2.0 licence. That is a real achievement.
+      </p>
+
+      <p>
+        It is also a partial one, and the project says so. lowRISC, which stewards the design, states that building a secure chip from it requires "analog IP (e.g. entropy source, sensor top), foundry IP (e.g. memories, power) and vendor-specific software," and that "this IP is proprietary to silicon vendors and foundries, and typically commercial and/or closed-source." Dominic Rizzo, one of OpenTitan's founders, said much the same to <em>Electronic Design</em> in 2024: "When it comes to getting the chip out the door, that's where the open-source rubber meets the proprietary road."
+      </p>
+
+      <p>
+        Memories and power circuits are physical structures tuned to one manufacturing process, and an entropy source, the analog circuit a chip uses to produce random bits, is the raw material of every key the chip will ever generate. Compare Huang's own recent chip, the Baochip-1x, built in TSMC's 22 nm process and described by its designer as "mostly-open." He lists the closed parts as "components such as the AXI bus framework, USB PHY, and analog components such as the PLL, voltage regulators, and I/O pads," argues that they do not transform data and are effectively wires, and concedes that "one can't definitively rule out the possibility of back doors in black-box wires." His reason for going ahead anyway is candid: "we simply can't afford to wait for fully open source PDKs to come along."
+      </p>
+
+      <p>
+        That acronym names the deepest closed layer. A process design kit, or PDK, is the foundry's description of its own manufacturing process. It contains the design rules that say what can legally be drawn, models of how transistors will behave, and libraries of standard cells: the pre-drawn gates from which digital chips are assembled. Tim Edwards of the chip-design firm Efabless wrote in 2020 that for over twenty years PDKs had been "a domain of secret knowledge, non-disclosure agreements (NDAs), license servers, and password-protected download sites."
+      </p>
+
+      <p>
+        The main exception is SkyWater's SKY130. Launched in July 2020 as a collaboration between Google and the SkyWater foundry in Minnesota, it was announced as "the first foundry-supported open source process design kit (PDK) for 130 nm mixed-signal CMOS technologies," under Apache 2.0, with a Google-sponsored shuttle that would fabricate selected open designs at no cost to the designers. Its repository describes the process as "a mature 180nm-130nm hybrid technology originally developed internally by Cypress Semiconductor." Edwards's paper called 130 nm "a feature size that has been around since 2001," and said that some technical details remained hidden even so. He was also direct about why this happened at the old end of the range: "the newest and most expensive processes will remain proprietary and very closely guarded." Since then GlobalFoundries has opened its GF180MCU process and the German research foundry IHP has opened a process of its own, all at mature nodes. The current leading edge is measured in single-digit nanometres, and we found no published PDK for it.
+      </p>
+
+      <p>
+        An open PDK also describes a process without opening it. A published kit tells you what the foundry says its machines do. The machines, the recipes and the people stay where they are.
+      </p>
+
+      <p>
+        So when someone says "open chip," it is worth asking how far down the claim goes: instruction set, RTL, netlist, layout, cell library, analog blocks, memories, process rules, the masks themselves. As far as we could find, no chip at a modern node is open at all of those levels, and the two security-minded efforts discussed here say in their own words that theirs are not.
+      </p>
+
+      <h3>The step where a design leaves human reach</h3>
+
+      <p>
+        Now follow a design as it goes to manufacture. RTL is synthesised into a netlist, a list of cells and connections. The netlist is placed and routed into a layout, stored in a format called GDSII, which is simply polygons on numbered layers. As the Max Planck researchers who study this put it in a talk, the designer "sends GDSII design file to fab," and the fab "produces physical masks and chips."
+      </p>
+
+      <p>
+        A mask is a plate that acts as a stencil for one layer of the chip, and a chip takes many of them. Everything after this point happens inside a building you do not own. The A2 paper quotes an expected cost, by 2020, of $20 billion to set up a line for the smallest transistors, and the US Government Accountability Office told Congress in 2015 that leading-edge facilities "can cost several billion dollars annually." These figures are why most chip designers outsource fabrication, and why "rebuild it yourself," the second leg of the software argument, is not available.
+      </p>
+
+      <p>
+        Even if you could run it twice, you would not get identical answers, and this is the deepest difference from software. Two reproducible builds are the same bits. Two chips from the same mask are different physical objects, and the small differences between them are what the fingerprinting research described below has to model as noise. As we read it, this makes every comparison of two chips a statistical judgement about whether a difference is noise or intent, without the clean yes or no of a matching hash.
+      </p>
+
+      <p>
+        And the design can still change after it leaves the designer. Huang, who has worked in the chip business, writes: "In the process of making chips, I've also edited masks for chips; chips are surprisingly malleable, even post tape-out." The Max Planck talk lists the entry points: rogue employees, subverted design tools, malicious third-party IP blocks, intercepted transport or an untrusted contractor, and the fab itself.
+      </p>
+
+      <p>
+        Governments have met this mostly with vetting rather than inspection. The US Department of Defense started its Trusted Foundry Program in 2004 through an annual contract with IBM, later renaming it the trusted supplier program. The GAO's description of how the program judged trust is telling: "assessing the integrity of the people and processes." That is a custody answer. It says who may touch the wafers. It does not make the wafers easier to check. In the same 2015 testimony, the GAO reported that among approved suppliers "none, other than IBM, offered leading-edge technologies that met DOD's needs," and that after IBM's planned transfer of its fabrication business to GlobalFoundries, a US-based but foreign-owned company, continued access to those technologies "is uncertain." We have not traced how that has developed since.
+      </p>
+
+      <h3>What can hide below the design</h3>
+
+      <p>
+        In 2013, Georg Becker, Francesco Regazzoni, Christof Paar and Wayne Burleson presented "Stealthy Dopant-Level Hardware Trojans" at the CHES conference. A hardware Trojan is a deliberate, hidden change to a chip. Dopants are the impurities added to silicon that make a region of it conduct in one way or another, and they are what turn a patch of silicon into a working transistor. The authors' idea was to change nothing except the polarity of the dopant in selected transistors. Swap the type in the right places on an inverter, a gate that simply flips its input, and the gate's output is stuck at a constant value, while, as their slides list, all the metal layers, the polysilicon, the active area and the wells stay the same. Nothing is added, nothing moves, and the wiring looks right.
+      </p>
+
+      <p>
+        One of their two case studies targeted a design derived from the random number generator in Intel's Ivy Bridge processors. Fixing selected bits of the generator's internal state would cut its strength from 128 bits to a number of bits the attacker chooses. At 32 bits, their slides say, the output still passes the NIST random number test suite, and secret keys made from it are insecure. The built-in self-test, the fixed check a chip runs on itself, was the part they had to get past, and they took a lesson from doing so: "Build-In Self Tests good for detecting defects but not for detecting Trojans." The second case study changed the power draw of two gates in a side-channel-resistant cipher circuit so that it leaked its key, with no change in its logic. The slides also name a practical limit: reverse-engineering the design and learning the test procedure is "probably the limiting factor in practice." Our reading rests on the slides and abstract; the full text was not reachable.
+      </p>
+
+      <p>
+        The next year brought a correction, which is the healthy part of this story. Takeshi Sugawara and colleagues reported at CHES 2014 that, "contrary to an assumption made by Becker et al., dopant types in active region are visible with either scanning electron microscopy (SEM) or focused ion beam (FIB) imaging." The effect, passive voltage contrast, is a known failure-analysis technique. They tested a dedicated chip using an anti-reverse-engineering technique that works on the same principle, delayered it down to the contact layer, and could tell all four dopant-well combinations apart in the SEM images. The price is that you must grind down to the contact layer rather than stopping at the metal, which they estimated at up to 16 times as many images as imaging a metal layer. So the dopant Trojan is not invisible. It can be seen by someone who has already destroyed the chip and knows to look at that layer. Later literature does not always keep up: Huang's 2023 paper still describes doping changes as invisible to most inspection including SEM, while the A2 paper says detection needs complete delayering and comprehensive SEM imaging. We think the second description fits the evidence.
+      </p>
+
+      <p>
+        A2, the chip we opened with, took the other path. It adds something, but so little, and in such an unremarkable shape, that the addition is hard to pick out. Its authors spell out the trade-off. A dopant Trojan is very hard to see and easier to catch in testing, since it has no sophisticated trigger. A more complex trigger hides better at run time and leaves more physical trace, and their contribution was to shrink that trace. A2's trigger needs dozens of consecutive rare events, and the authors say they "had to employ sleds of inline assembly" to get activity high enough to fire it deliberately. In their simulation the leaking capacitor held its charge for about 25 microseconds, so unless the wire keeps toggling, the charge drains away.
+      </p>
+
+      <p>
+        The most recent turn in this line is a 2026 preprint, not yet the settled word on anything, from a team including Paar and Steffen Becker. It asks whether a cell library itself can be more or less hospitable to Trojans. Working from public electron microscope images of cells at four nodes, the authors report in every library "cells that implement distinct logic functions yet are visually indistinguishable in backside SEM images." The pairs are mostly logical inverses: XOR and XNOR, a buffer and an inverter. They used these to design a privilege-escalation backdoor in an Ibex RISC-V core, swapping three cells in the 65 nm version and two in the 28 nm version. They did this in layout and evaluated it against existing images, and say so plainly, writing that they could "pretend to have manufactured and imaged" the designs without taking those steps. In all but the 65 nm library they found pairs with identical via placements, for which they call detection by via analysis "impossible considering the type of imaging even in an ideal scenario." Their prediction is that this gets worse as cells shrink. That is a prediction from four nodes, and it needs testing at more. They also hold that verification stays reasonably achievable for replacements that are not identical, and recommend that designers avoid the problem cells.
+      </p>
+
+      <h3>Looking at the chip</h3>
+
+      <p>
+        There are several ways to look at the physical chip, and each has a price, something it destroys, and a limit on what it can see.
+      </p>
+
+      <p>
+        <strong>Delayering and electron microscopy.</strong> This is the reference method. A scanning electron microscope can resolve the latest transistors but only sees surfaces, so to reach the transistors you must remove what covers them. The routine is etching or polishing away the overlying metal, with hydrofluoric acid in one example Huang shows. The chip does not survive.
+      </p>
+
+      <p>
+        The best public measurement of how well this works is "Red Team vs. Blue Team," by Endres Puschner and colleagues at IEEE S&amp;P 2023. A red team made small layout changes standing in for Trojans in real chips at 90, 65, 40 and 28 nm, and a blue team received the chips and the design files and compared layout with backside SEM images. The team found all four replaced filler cells, the empty spacer cells that fill gaps, at every node. For swapped functional cells, it found six of six at 90, 65 and 40 nm, and three of six at 28 nm. False positives ran 136, 6, 11 and 343 for those functional-cell swaps, and the 28 nm chip was the worst on both counts. A later study of the same public images found another method that caught all six at every node, at the cost of more false positives at some nodes, more than 5,000 at 65 nm. The authors concluded that "even minimal trojans can be found." They also wrote: "Destructive process, probably sufficient to check few samples."
+      </p>
+
+      <p>
+        That sentence holds the central limit. Destroying a chip tells you about the chip you destroyed. Inference to the rest of the batch holds only if the batch is uniform, and an adversary is free to change a few wafers or a few packaged parts rather than all of them. Huang calls this the time-of-check to time-of-use problem for hardware: the techniques "must be performed either on samples of chips that are merely representative of the exact device in your possession," or at a remote lab, in which case your own chip passes through strangers' hands on the way there and back.
+      </p>
+
+      <p>
+        There is a second limit that is easy to miss. The blue team had the design files. The comparison was layout against image, and that is the only comparison the method offers. Publishing RTL does not supply it. In our reading, RTL fixes the logic but leaves the placement open, because different tool runs and cell libraries give different layouts, and the libraries are usually under NDA. So an outside party holding open RTL and a commercial chip has no reference to compare the image to unless someone also publishes the layout. Huang says as much about the closed case: "we don't know what we're looking at, or what we're looking for."
+      </p>
+
+      <p>
+        <strong>X-rays.</strong> A security-checkpoint X-ray shows you the die's size and the bond wires, but silicon is nearly transparent to it. Ptychography is a different proposition: a technique using high-energy X-rays that, in Huang's words, "can non-destructively establish the pattern of transistors on a chip." In March 2017, Mirko Holler and colleagues at the Paul Scherrer Institute in Switzerland reported in <em>Nature</em> three-dimensional images of chips "with a lateral resolution in all directions down to 14.6 nanometres," an Intel processor among them, without removing layers one by one as electron microscopy requires. In August 2024, a follow-up led by Tomas Aidukas reached 4 nm, imaging a commercial seven-nanometre-node integrated circuit down to individual transistors, with a method about 170 times faster than the previous one.
+      </p>
+
+      <p>
+        This is the closest anyone has publicly come to reading a chip without peeling it, and "non-destructive" needs careful handling. The measurement does not harm the sample. The sample, however, was a small piece cut out of the chip beforehand: about ten micrometres across in the PSI account of the 2017 work, an "11 µm cylindrical pillar" in <em>Physics World</em>'s. The dies in Huang's IRIS paper are 3.9 and 8 millimetres wide, hundreds of times wider than that. <em>Physics Today</em> reports 40 hours of data collection for the 3D image, perhaps reducible to an hour with a brighter beam. The researchers describe extending the technique to whole chips in an acceptable measurement time as a goal. <em>Physics World</em> mentions laminography as a way to image whole chips, which needs a higher-power source than the 2017 team had. All of it requires a synchrotron, "a light source the size of a building," as Huang puts it, "of which there are few in the world." And as a matter of custody, your chip now has to travel to one. That is the remote-lab problem again, plus what Huang calls "evil courier" attacks.
+      </p>
+
+      <p>
+        Huang's paper groups ptychography with the methods that would miss dopant changes, and we found no published demonstration that shows otherwise. Whether X-ray methods could distinguish the "invisible inversions" of the 2026 preprint is something we could not find tested.
+      </p>
+
+      <p>
+        <strong>Infrared, through the back of the chip.</strong> Silicon turns from opaque to transparent between about 1000 and 1100 nanometres. Huang's Infra-Red In Situ method, IRIS, published in 2023, exploits this with a digital camera whose infrared filter has been removed and a 1070 nm LED source. It looks through the back of a chip already soldered to its circuit board and images the lowest metal layers. There are no acids and no courier. The inspiration, he notes, was work with a laser tool costing about a million dollars. His is the only method in this list that a determined individual could run at home, on the very chip they intend to use.
+      </p>
+
+      <p>
+        It also has the plainest limit, and Huang states it himself: "IRIS cannot inspect the smallest features of a chip." Light of that wavelength cannot resolve anything much finer than about a micron. His best images run at about 1.13 micrometres per pixel, "around the limit of what could be resolved with the 1070 nm light source," while a logic gate in a 28 nm process is about 0.8 micrometres tall. So IRIS sees the macro scale clearly: how many memory blocks, converters, I/O pads. It sees the middle scale usefully, down to the rows of a memory block. It does not see individual gates. A2's trigger, about the size of a couple of standard cells, is below what it can pick out by direct viewing, although Huang argues that regional brightness carries some information.
+      </p>
+
+      <p>
+        It also needs a particular kind of package. The back of the silicon must be exposed, as it is on wafer-level and flip-chip parts, and many chips are moulded in opaque plastic. There is a coming problem as well. As processes approach 2 nm, the industry is moving power delivery to the back of the chip. A failure-analysis text says the obstruction from those networks "obsoletes many of the electrical fault isolation (EFI) techniques" used for decades. It is our inference, and not a claim we found tested, that backside optical inspection will meet the same wall on chips built this way.
+      </p>
+
+      <p>
+        Huang is careful about what IRIS is for. IRIS alone does not verify a chip. It is meant to be paired with logic-level self-tests. The tests probe the fine structure, and IRIS rules out the extra circuitry that a Trojan would need to fake those tests. This depends on the design having been planned for the purpose in advance, and he lists a turnkey comparison tool as something that "would go a long way," which is to say it did not yet exist.
+      </p>
+
+      <p>
+        <strong>Laser probing.</strong> Failure-analysis labs have long used lasers to read electrical activity through the back of a running chip. In a 2021 paper extended in 2023, Thilo Krachenfels, Jean-Pierre Seifert and Shahin Tajik modulated a chip's supply voltage so that dormant circuitry shows up in a laser logic state image, which removes the need to know a Trojan's trigger. Three case studies on 28 nm and 20 nm FPGAs found small changes in logic and routing, without damaging the chip. Applied to A2-style and dopant Trojans in fixed chips, the authors write only that detection "should be possible," and say why they think so. They add that since those are pre-silicon modifications "we could not investigate them." The method also needs, in some cases, decoupling capacitors removed from the board, along with a bare-die or lid-removed package and a commercial failure-analysis microscope.
+      </p>
+
+      <p>
+        <strong>Side channels.</strong> Every working chip draws power, gets warm and radiates. In 2007, Agrawal and colleagues, a team including IBM researchers, proposed building a statistical fingerprint for a chip family from those signals. A few chips from a batch are tested invasively, and the rest are checked against the fingerprint. A talk abstract on the work reported that Trojans 3.4 orders of magnitude smaller than the main circuit could be detected in simulation by signal processing. This is cheap per chip and leaves it intact, and it has two standing problems. The first is the reference, sometimes called a golden chip: one known to be clean. A research group at UT Dallas names the limitation as "its reliance on availability of a small set of Trojan-free ICs," and has reported work replacing it with a trusted simulation model and on-chip process monitors. How you come to trust those is the original question again. The second is size. A2's authors write that side-channel defences "have little hope of detecting the impact of a single gate in a sea of 100,000 gates." The Becker team's cipher Trojan was designed to survive common side-channel analysis. Fingerprinting catches changes that are large relative to the noise, and the Trojans described above were built to stay below it.
+      </p>
+
+      <h3>Hiding the design from the fab</h3>
+
+      <p>
+        If checking afterwards is so hard, can you deny the factory the knowledge it needs? A targeted Trojan requires knowing which transistor to touch. Two families of technique try to withhold that.
+      </p>
+
+      <p>
+        Logic locking adds extra key inputs to a circuit, so that the chip works only when the correct key is loaded after manufacture. The foundry sees a netlist that does not, without the key, do what it is meant to. In 2015, Pramod Subramanyan, Sayak Ray and Sharad Malik tested six published proposals using a SAT solver, a general-purpose logic search program. Their summary: "We find that all of these are vulnerable to our attack," and "Among the 441 encrypted circuits we examined, we were able to decrypt 418 (95%)." New schemes followed, such as SARLock, and new attacks followed them, including Double DIP from Yuanqi Shen and Hai Zhou. Huang's objection is more basic: simple locking "could be bypassed with just a few gates once the key is known," so it is weak protection against a party who can add a few gates, and that party is the one in question.
+      </p>
+
+      <p>
+        Split manufacturing divides the chip by layers. The transistor layers, called front-end-of-line, are made at an untrusted foundry. The upper wiring, or back-end-of-line, is added at a trusted facility, so the first foundry never sees the complete circuit. The US intelligence research agency IARPA launched its Trusted Integrated Chips program on this basis, reported in 2011 as starting at 130 nm and aiming to scale to 22 nm over five years, with a stated aim of "near 100% assurance that designs are safe and secure." We did not find a public final report.
+      </p>
+
+      <p>
+        Two weaknesses are documented. Placement tools try to keep connected cells close together, so the layout leaks the missing wiring. Work cited by the A2 authors recovered up to 96% of the missing wires, and a group at NYU wrote in 2017 that a later network-flow attack showed most prior split-manufacturing work to be highly vulnerable, before offering layout techniques that lower its success rate without removing it. And it requires a trusted fab with matching tools, which brings back the cost and vetting problem from before. A2's authors called it "an already prohibitively expensive defense," and they noted that the wires-only version leaves a Trojan like theirs untouched, since it manipulates a flip-flop, and the flip-flops stay at the untrusted foundry. They allow that splitting at the lowest metal layer might stop it, and call that an extremely challenging manufacturing problem that no fabricated chip had yet demonstrated.
+      </p>
+
+      <h3>The chip you hold may not be the one you ordered</h3>
+
+      <p>
+        Everything so far assumes the chip in the socket came from the fab you think it did. That assumption is unsafe on far cheaper grounds than any of the above.
+      </p>
+
+      <p>
+        In 2012 the GAO set up a fictitious company, gained access to the online platforms used by parts brokers, and asked for electronic parts of the kind used in military systems. Of the 16 parts it finally bought, the report states that "none of the 16 parts vendors provided to GAO were legitimate." Using tests "ranging from inspection with electron microscopes to X-ray analysis," a lab found that the parts "had been re-marked to display the part numbers and manufacturer logos of authentic parts." Four vendors sold it parts under invalid part numbers, showing, in the report's words, "their willingness to supply parts that do not technically exist." The GAO's sample was small and was not designed to be generalised. The same year, secondary accounts of a Senate Armed Services Committee report put its count at about 1,800 cases covering over a million suspect parts in defence supply chains in 2009 and 2010. We could not retrieve the report itself.
+      </p>
+
+      <p>
+        The same pattern appears in commercial parts. Huang's survey of microSD cards, all carrying the same Kingston 2 GB branding, dissolved them in acid to reveal "a great diversity in internal construction." His takeaway was plain: "labels can't be trusted."
+      </p>
+
+      <p>
+        DARPA's SHIELD program, announced in February 2014, took this problem on with a tiny authentication component: a dielet about 100 micrometres on a side, with an encryption engine and sensors, attached to a part with no electrical connection to it. The program manager said it would cost less than a penny per unit, and the stated goal was to eliminate counterfeit chips from the supply chain. DARPA's page now says "This program is now complete." We found no public report that such dielets were fielded in the supply chain. A dielet can speak to whether this package carries a genuine token. By design, having no connection to the chip, it cannot speak to what is on the die, and a chip altered at the foundry could carry a real one.
+      </p>
+
+      <p>
+        The chain also continues after the factory. Huang's list includes "couriers, customs officials, and warehouse workers," and a particularly cheap route: buying a product, altering it, and returning it to the seller for resale.
+      </p>
+
+      <h3>The FPGA detour</h3>
+
+      <p>
+        Faced with all this, Huang's project Betrusted, and its device Precursor, made an unusual choice for the processor. It did not use a custom chip, open or otherwise. It used a field-programmable gate array, or FPGA: a chip that is a large regular grid of small logic elements and switchable wires, configured after manufacture by loading a file called a bitstream.
+      </p>
+
+      <p>
+        His reasoning, from the 2019 post, moves the problem. An FPGA has a fixed physical structure, but the design loaded into it is bits, and bits can be built, hashed and compared by the user. "The ability to inspect compiled bitstreams in particular brings the CPU problem back to a software-like situation." It also delays the moment when your design meets the silicon until after the foundry is finished. A factory has a much harder job aiming a Trojan at your privilege bit if it does not know where your privilege bit will be. Huang's point is that placement can be randomised by a seed in the source, so "it is not practically useful for an adversary to backdoor a few logic cells within an FPGA," and a broader attack would need gross changes visible by X-ray. He compares this to address-space randomisation in software: "it's not bulletproof, but it's cheap to execute." He suggested that FPGAs "may be the gold standard for verifiable and trustworthy hardware until a viable non-destructive method is developed for the verification of custom silicon."
+      </p>
+
+      <p>
+        That reasoning has limits, which Huang also stated. The FPGA itself, in his case a Xilinx Spartan-7, is "a closed source piece of silicon that currently relies on a proprietary compiler." The vendor's compiler is a Thompson-shaped problem in a new place. Hence the open toolchain effort he cited, SymbiFlow, since renamed F4PGA, and Project X-Ray, which "documents the Xilinx 7-Series FPGA architecture to enable development of open-source tools." These describe a closed product from outside, and their coverage has been uneven. Huang's hope for them was modest: "even if we can't understand exactly what every bit does, we can at least detect novel features being activated."
+      </p>
+
+      <p>
+        Krachenfels and colleagues note that programmable hardware "is vulnerable to Trojan insertion even after the product has been shipped or during usage." In April 2020 came the sharpest illustration. Maik Ender, Amir Moradi and Christof Paar published "The Unpatchable Silicon," a full break of the bitstream encryption on Xilinx 7-series parts, the family Huang had chosen. It worked by abusing the configuration logic so that the chip's decrypted bitstream ended up in a register that could be read out, and it allowed a modified bitstream to be loaded. Ruhr University Bochum's announcement said the flaw "can only be closed by replacing the chip." Huang's December 2019 post had described leaning on these encryption features to seal a device after inspection. We have not traced what was done about that later. As we read the episode, it shows the shape of the risk: a closed feature in fixed silicon failed in a way that inspecting your own bitstream would not have revealed.
+      </p>
+
+      <p>
+        The price of the detour is also physical. Huang chose his part largely because of a two-to-four-times power difference between candidates, which he described as the difference between all-day battery life and "dead by noon." His three principles begin with "Complexity is the enemy of verification," and they accept a device that does very little: it "can't browse the web." The reasoning is tied to that kind of device.
+      </p>
+
+      <p>
+        His later Baochip work suggests that even its advocate did not see it as the end state. It is a custom chip again, in a closed 22 nm process, with its design made compatible with IRIS on purpose. His own verdict on it is: "It's not perfect transparency."
+      </p>
+
+      <h3>What attestation does not add</h3>
+
+      <p>
+        Remote attestation is the practice of having a device report signed measurements about itself, so that a distant party can decide whether to trust it. The IETF's architecture for it, RFC 9334, states the idea in a phrase that repays attention: the Attester "produces believable information about itself." The RFC is honest about where the belief comes from. Trust typically arrives indirectly, "by having an Endorser (such as a manufacturer) vouch for the Attester's ability to securely generate Evidence." And the bottom of the stack gets a specific name: "components that have to be vouched for via Endorsements (because no Evidence is generated about them) are referred to as 'roots of trust'."
+      </p>
+
+      <p>
+        So the chain is this. The chip's root measures the software and signs. The signature checks out against a key that the manufacturer vouches for. Nothing in this reports on the construction of the root itself, because by the RFC's own description no Evidence is generated about it. A root with a stuck random number generator, or with a capacitor attached to its privilege bit, would sign just as confidently. Attestation is useful for what it was built for, which is learning what a device is running and whether its key is one the manufacturer vouched for. It turns a question about the silicon into a question about the manufacturer.
+      </p>
+
+      <h3>What is actually known</h3>
+
+      <p>
+        It is known that fabrication-time changes can be small and can be built: A2 was fabricated and run. It is known that a well-equipped lab holding the true layout can find cell-level changes by destroying a sample, down to at least 28 nm, with growing difficulty and false alarms as nodes shrink. It is known that X-ray imaging can reach transistor detail in a small excised piece of a 7 nm chip, at a synchrotron, and that infrared imaging can bound the large and middle structure of an intact, mounted chip with an exposed back at home. It is known that in one small government test, none of the 16 parts bought were legitimate. And open designs now exist in commercial silicon, which means the first half of the software argument, reading the design, has become possible for parts of some chips.
+      </p>
+
+      <p>
+        We found no published method that lets anyone examine, at the level of individual transistors and dopants, the specific chip they intend to use, at a current process node, leaving it working and in their custody. The methods that reach that scale cut it up or send it away. The method that leaves it home stops at about a micron. The people working on it describe closing this gap as an aim.
+      </p>
+
+      <p>
+        We do not know how often any of this happens. Becker's 2013 slides state: "No 'real' Hardware Trojan found yet," and describe all examples as academic. We searched and did not find a publicly documented, confirmed case of a foundry-inserted Trojan in a commercial chip since. That is a statement about our search and the public record. Given how few parts are ever delayered, and how the work of those who do it is rarely published, it is weak evidence of absence. What government laboratories can do, and have found, is not public.
+      </p>
+
+      <p>
+        We do not know how far detection will degrade. The best public data covers four nodes, stops at 28 nm, and uses only a handful of inserted changes per chip. Whether the cell-level ambiguity reported in 2026 grows at smaller nodes is a prediction. Leading-edge chips are well past any published test of this kind that we found.
+      </p>
+
+      <p>
+        And it is not clear what a practical reference would be. Comparing a chip against its design requires the layout, the layout depends on closed libraries, and a clean comparison requires someone to trust whoever published them. What would it take for a foundry to release enough for strangers to check its output? No foundry we know of at the leading edge has offered that, and Edwards's 2020 paper gives the commercial reason.
+      </p>
+
+      <p>
+        So here is what open hardware does not tell you. It does not tell you that the chip you hold was made from the published design. It does not tell you that the closed memories, analog blocks and cell libraries around the open logic do what they say. A passing self-test does not tell you that no Trojan is present, because a Trojan can be built to stay asleep or to answer correctly. A clean destructive inspection does not tell you about any chip other than the one destroyed. A genuine-looking package and a correct attestation signature do not tell you what is on the die.
+      </p>
+
+      <p>
+        Openness is still worth a great deal. It lets many people find honest mistakes and deliberate ones in the design, gives inspection a reference where there was none, and stops a vendor's word being the only description available. Huang, who has done as much as anyone to build it, called open source "necessary for trustable hardware" and "far from sufficient." That remains the most accurate summary we know of. The software method works because a program is its own description, and any copy can be compared with any other. A chip is a physical object made once, in a place you were not, with features smaller than the light that passes through it can show, and the only things that can currently read it to the bottom are also the things that end it.
+      </p>
+
+      <div class="essay-footnote">
+        <p><strong>A note on our interests.</strong> ZKNOT, Inc. &mdash; the company that funds this educational project &mdash; builds hardware attestation devices using commercial chips of the kind discussed here, and so has an obvious interest in how this subject is understood. Nothing in this essay describes or recommends its products.</p>
+        <p><strong>Corrections.</strong> If you find an error in this essay we would like to know. Write to editors@zknot.org.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <footer class="container">
+    <div class="colophon">
+      <div>
+        <h5>About</h5>
+        <p>ZKNOT is an independent educational project on physical trust, hardware authenticity, and the visible and invisible systems that decide what we believe about objects.</p>
+        <p><a href="/about/">Read our editorial stance →</a></p>
+      </div>
+      <div>
+        <h5>The Ecosystem</h5>
+        <p><a href="https://zknot.io">zknot.io</a> &mdash; the company<br>commercial products &amp; licensing</p>
+        <p><a href="https://verifyknot.io">verifyknot.io</a> &mdash; the platform<br>consumer verification tooling</p>
+        <p><a href="/">zknot.org</a> &mdash; this project<br>education &amp; documentation</p>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <p>Set in Fraunces and Source Serif 4. Monospaced details in JetBrains Mono. Edited and published from Salt Lake City, Utah.</p>
+        <p>No tracking. No analytics. No newsletter &mdash; yet.</p>
+      </div>
+    </div>
+    <div class="colophon-bottom">
+      <span>&copy; 2026 ZKNOT, Inc.</span>
+      <span>An educational initiative</span>
+    </div>
+  </footer>
+
+</body>
+</html>
